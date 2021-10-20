@@ -1,0 +1,23 @@
+.navbar {
+    grid-area: navbar;
+    outline: 1px solid black;
+    height: 1000px;
+}
+
+.nav_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkcyan;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 120px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.nav_button:hover {
+    cursor: pointer;
+    color: #fff;
+
+}

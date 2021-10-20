@@ -1,0 +1,21 @@
+.profile {
+    grid-area: profile;
+    outline: 1px solid black;
+
+}
+
+.img {
+    padding: 20px;
+}
+
+.photo_section {
+    display: flex;
+}
+
+.photo_desc {
+    padding: 20px;
+}
+.photo_name {
+    font-size: 16px;
+    color: darkolivegreen;
+}

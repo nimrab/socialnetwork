@@ -1,0 +1,24 @@
+.post_box {
+    width: 400px;
+    position: relative;
+}
+
+
+.box_text {
+    background-color: khaki;
+    height: 50px;
+    margin: 10px;
+}
+
+
+.thumbs {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    top: -30px;
+    left: -12px;
+}
+
+.thumbs:hover {
+    cursor: pointer;
+}

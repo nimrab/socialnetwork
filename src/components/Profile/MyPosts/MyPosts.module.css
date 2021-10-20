@@ -1,0 +1,17 @@
+.post_section {
+    margin: 20px;
+}
+
+.post_input {
+    background-color: beige;
+    min-width: 400px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.post_shared {
+    margin: 20px;
+    margin-top: 50px;
+
+}
