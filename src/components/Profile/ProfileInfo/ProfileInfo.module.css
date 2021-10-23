@@ -1,0 +1,18 @@
+.photo_section {
+    display: flex;
+}
+
+
+
+.img {
+    padding: 20px;
+}
+
+.photo_desc {
+    padding: 20px;
+}
+
+.photo_name {
+    font-size: 16px;
+    color: darkolivegreen;
+}

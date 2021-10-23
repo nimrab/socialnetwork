@@ -1,16 +1,16 @@
-import React from 'react';
-import css from './MyPost.module.css';
+import React from "react";
+import css from "./Post.module.css";
 
 
-type MesPropType = {
-    mes: string,
+
+type PostProps = {
+    mes: string
     likes: number
 }
 
-export const MyPost:React.FC<MesPropType> = (props) => {
+export const Post:React.FC<PostProps> = (props) => {
 
     return (
-
         <div className={css.post_box} >
             <div className={css.box_text}>
                 {props.mes}
@@ -21,7 +21,6 @@ export const MyPost:React.FC<MesPropType> = (props) => {
 
             </span>
         </div>
-
     )
 
 }
