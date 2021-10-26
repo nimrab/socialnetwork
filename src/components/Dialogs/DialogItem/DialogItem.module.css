@@ -1,0 +1,17 @@
+.DialogItemBox {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.DialogItemLink {
+    text-decoration: none;
+    color: black;
+}
+
+a.active {
+    font-weight: 700;
+    color: lightseagreen;
+    font-size: 17px;
+}
+

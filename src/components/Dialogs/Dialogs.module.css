@@ -10,8 +10,6 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-
-
 }
 
 .dialogs_messages {
@@ -19,19 +17,6 @@
     padding: 20px;
 }
 
-
-.DialogItemBox {
-    display: flex;
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-}
-
-
-.DialogItemLink {
-    text-decoration: none;
-    color: black;
-}
 
 .DialogItemLink:hover {
     cursor: pointer;
@@ -41,13 +26,3 @@
     cursor: pointer;
 }
 
-
-a.active {
-    font-weight: 700;
-    color: lightseagreen;
-    font-size: 17px;
-}
-
-.message {
-    color: grey;
-}
