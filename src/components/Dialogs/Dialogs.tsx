@@ -1,51 +1,57 @@
 import React from "react";
 import css from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
+import {DialogItem} from "./DialogItem";
+import {Message} from "./DialogMessage";
+
 
 export const Dialogs = () => {
+
+    type dialogDataType = {
+        id: number
+        name: string
+    }
+
+    const dialogData: Array<dialogDataType> = [
+        {id: 1, name: "MyFriend1"},
+        {id: 2, name: "MyFriend2"},
+        {id: 3, name: "MyFriend3"},
+        {id: 4, name: "MyFriend4"},
+        {id: 5, name: "MyFriend5"},
+        {id: 6, name: "MyFriend6"},
+        {id: 6, name: "MyFriend6"},
+    ]
+
+    type dialogMessageDataType = {
+        id: number
+        text: string
+    }
+
+    const dialogMessageData: Array<dialogMessageDataType> = [
+        {id: 1, text: "hello"},
+        {id: 2, text: "wowow"},
+        {id: 3, text: "fufufu"},
+    ]
+
+    const dialogDataMap: JSX.Element[] = dialogData.map(el => {
+        return <DialogItem id={el.id} name={el.name}/>
+    })
+
+    const dialogDataMessageMap: JSX.Element[] = dialogMessageData.map(el => {
+        return  <Message text={el.text}/>
+    })
+
     return (
         <section className={css.dialogs}>
-
             <div className={css.dialogs_items}>
-                <DialogItem id={1} name="MyFriend1"/>
-                <DialogItem id={2} name="MyFriend2"/>
-                <DialogItem id={3} name="MyFriend3"/>
-                <DialogItem id={4} name="MyFriend4"/>
-                <DialogItem id={5} name="MyFriend5"/>
+                { dialogDataMap }
             </div>
-
-
             <div className={css.dialogs_messages}>
-                <Message text="Hello bro"/>
-                <Message text="Hello buddy"/>
-                <Message text="Hello man"/>
+                { dialogDataMessageMap }
             </div>
-
-
         </section>
     )
 }
 
 
-type DialogItemProps = {
-    id: number
-    name: string
-}
-const DialogItem: React.FC<DialogItemProps> = (props) => {
-    return (
-        <div className={css.DialogItemBox}>
-            <NavLink to={"/dialogs/" + props.id} className={css.DialogItemLink} activeClassName={css.active}>{props.name}</NavLink>
-        </div>
-    )
-}
 
 
-type MessageProps = {
-    text:string
-}
-const Message:React.FC<MessageProps> = (props) => {
-    return (
-
-        <div className={css.message}>{props.text}</div>
-    )
-}
