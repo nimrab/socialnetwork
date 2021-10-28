@@ -5,10 +5,18 @@ import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
+import {dialogDataType, dialogMessageDataType, MesPropType} from "./index";
 
 
+type AppProps = {
+    mesData: Array<MesPropType>,
+    dialogData: Array<dialogDataType>,
+    dialogMessageData: Array<dialogMessageDataType>
+}
 
-const App = () => {
+
+const App = (props: AppProps) => {
+
 
     return (
         <BrowserRouter>
@@ -17,8 +25,10 @@ const App = () => {
                 <Navbar/>
                 <div className="content">
 
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/dialogs' component={Dialogs}/>
+                    {/*<Route path='/profile' component={Profile}/>*/}
+                    {/*<Route path='/dialogs' component={Profile}/>*/}
+                    <Route path='/profile' component={() => <Profile mesData={props.mesData}/>}/>
+                    <Route path='/dialogs' component={() => <Dialogs dialogData={props.dialogData} dialogMessageData={props.dialogMessageData}/>}/>
 
                     {/*<Dialogs></Dialogs>*/}
                     {/*<Profile/>*/}

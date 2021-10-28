@@ -1,18 +1,21 @@
 import React from 'react';
 import css from './SharedPosts.module.css';
 import {Post} from "./Post";
+import {MesPropType} from "../../../../index";
 
 
+export const SharedPosts = (props:{mesData:Array<MesPropType>}) => {
 
-export const SharedPosts = (props:any) => {
+
+    const allPosts = props.mesData.map(el => {
+        return <Post mes={el.mes} likes={el.likes}/>
+    })
 
     return (
 
         <section className={css.post_shared}>
 
-            <Post mes={"hello bro"} likes = {600}/>
-            <Post mes={"how are you?"} likes = {700}/>
-            <Post mes={"I am here"} likes = {800}/>
+            {allPosts}
 
         </section>
 

@@ -2,44 +2,22 @@ import React from "react";
 import css from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./DialogMessage/DialogMessage";
+import {dialogDataType, dialogMessageDataType} from "../../index";
 
 
-type dialogDataType = {
-    id: number
-    name: string
+type DialogsProps = {
+    dialogData: Array<dialogDataType>,
+    dialogMessageData: Array<dialogMessageDataType>
 }
 
-const dialogData: Array<dialogDataType> = [
-    {id: 1, name: "MyFriend1"},
-    {id: 2, name: "MyFriend2"},
-    {id: 3, name: "MyFriend3"},
-    {id: 4, name: "MyFriend4"},
-    {id: 5, name: "MyFriend5"},
-    {id: 6, name: "MyFriend6"},
-    {id: 6, name: "MyFriend6"},
-]
-
-type dialogMessageDataType = {
-    id: number
-    text: string
-}
-
-const dialogMessageData: Array<dialogMessageDataType> = [
-    {id: 1, text: "hello"},
-    {id: 2, text: "wowow"},
-    {id: 3, text: "fufufu"},
-]
+export const Dialogs = (props: DialogsProps) => {
 
 
-
-export const Dialogs = () => {
-
-
-    const dialogDataMap: JSX.Element[] = dialogData.map(el => {
+    const dialogDataMap: JSX.Element[] = props.dialogData.map(el => {
         return <DialogItem id={el.id} name={el.name}/>
     })
 
-    const dialogDataMessageMap: JSX.Element[] = dialogMessageData.map(el => {
+    const dialogDataMessageMap: JSX.Element[] = props.dialogMessageData.map(el => {
         return <Message text={el.text}/>
     })
 

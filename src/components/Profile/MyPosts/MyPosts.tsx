@@ -2,20 +2,19 @@ import React from 'react';
 import css from './MyPosts.module.css';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-
-export type MesPropType = {
-    mes: string
-}
+import {MesPropType} from "../../../index";
 
 
-export const MyPosts = () => {
+
+
+export const MyPosts = (props: {mesData: Array<MesPropType>}) => {
+
 
     return (
         <section>
             <SendNewPost/>
-            <SharedPosts/>
+            <SharedPosts mesData={props.mesData}/>
         </section>
-
     )
 
 }
