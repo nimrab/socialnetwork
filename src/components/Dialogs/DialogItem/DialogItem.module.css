@@ -8,6 +8,9 @@
     text-decoration: none;
     color: black;
 }
+.DialogItemLink:hover {
+    cursor: pointer;
+}
 
 a.active {
     font-weight: 700;

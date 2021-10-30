@@ -20,7 +20,7 @@ export const App = (props: AppProps) => {
         <BrowserRouter>
             <div className="main_section">
                 <Header/>
-                <Navbar/>
+                <Navbar state={props.state.sidebar}/>
                 <div className="content">
 
                     {/*<Route path='/profile' component={Profile}/>*/}
