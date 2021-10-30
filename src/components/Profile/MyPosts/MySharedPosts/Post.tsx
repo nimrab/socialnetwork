@@ -1,6 +1,6 @@
 import React from "react";
 import css from "./Post.module.css";
-import {MesPropType} from "../../../../index";
+import {MesPropType} from "../../../../redux/state";
 
 
 

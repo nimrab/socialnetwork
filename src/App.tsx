@@ -5,18 +5,15 @@ import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {dialogDataType, dialogMessageDataType, MesPropType} from "./index";
-
+import {stateType} from "./redux/state";
 
 type AppProps = {
-    mesData: Array<MesPropType>,
-    dialogData: Array<dialogDataType>,
-    dialogMessageData: Array<dialogMessageDataType>
-    addPost: (post:string) => void
+    state: stateType
+    addPost: (post: string) => void
 }
 
 
-const App = (props: AppProps) => {
+export const App = (props: AppProps) => {
 
 
     return (
@@ -28,8 +25,16 @@ const App = (props: AppProps) => {
 
                     {/*<Route path='/profile' component={Profile}/>*/}
                     {/*<Route path='/dialogs' component={Profile}/>*/}
-                    <Route path='/profile' component={() => <Profile mesData={props.mesData} addPost={props.addPost}/>}/>
-                    <Route path='/dialogs' component={() => <Dialogs dialogData={props.dialogData} dialogMessageData={props.dialogMessageData}/>}/>
+                    <Route path='/profile'
+                           render={ () => <Profile
+                               state={props.state.profilePage}
+                               addPost={props.addPost}/> }/>
+
+                    <Route path='/dialogs'
+                           render={ () => <Dialogs
+                                   state={props.state.dialogsPage}/> }/>
+
+
 
                     {/*<Dialogs></Dialogs>*/}
                     {/*<Profile/>*/}
@@ -40,4 +45,3 @@ const App = (props: AppProps) => {
     )
 }
 
-export default App;

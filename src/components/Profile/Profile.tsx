@@ -2,11 +2,11 @@ import React from 'react';
 import css from './Profile.module.css';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPosts} from "./MyPosts/MyPosts";
-import {MesPropType} from "../../index";
+import {profilePageType} from "../../redux/state";
 
 
 export type ProfileProps = {
-    mesData: Array<MesPropType>
+    state: profilePageType
     addPost: (post:string) => void
 }
 
@@ -16,7 +16,7 @@ export const Profile = (props: ProfileProps) => {
         <div className={css.profile}>
 
             <ProfileInfo/>
-            <MyPosts mesData={props.mesData} addPost={props.addPost}/>
+            <MyPosts posts={props.state.posts} addPost={props.addPost}/>
 
         </div>
     )

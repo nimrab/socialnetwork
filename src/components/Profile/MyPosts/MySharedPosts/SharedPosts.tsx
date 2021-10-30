@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import css from './SharedPosts.module.css';
 import {Post} from "./Post";
 import {v1} from 'uuid'
-import {MesPropType} from "../../../../index";
+import {MesPropType} from "../../../../redux/state";
+
 
 type SharedPostsProps = {
     mesData: Array<MesPropType>

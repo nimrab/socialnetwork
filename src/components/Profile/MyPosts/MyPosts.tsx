@@ -3,12 +3,17 @@ import css from './MyPosts.module.css';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
 import {ProfileProps} from "../Profile";
-import {MesPropType} from "../../../index";
+import {MesPropType} from "../../../redux/state";
+
+export type MyPostsProps = {
+    posts: Array<MesPropType>
+    addPost: (post:string) => void
+}
 
 
-export const MyPosts = (props: ProfileProps) => {
+export const MyPosts = (props: MyPostsProps) => {
 
-    let [newSharedPosts, setNewSharedPosts] = useState<Array<MesPropType>>(props.mesData)
+    let [newSharedPosts, setNewSharedPosts] = useState<Array<MesPropType>>(props.posts)
 
 
     const callbackHandler = (post: string) => {
