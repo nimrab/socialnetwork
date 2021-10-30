@@ -1,20 +1,36 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import css from "./SendNewPost.module.css";
+import {Button} from "./Button";
 
 
-type SendNewPostProps = {
-
-}
 
 
-export const SendNewPost:React.FC<SendNewPostProps> = (props) => {
+
+export const SendNewPost = (props: {callback: (post:string) => void}) => {
+
+    let [newPostText, setNewPostText] = useState<string>("")
+
+    const onChangeEventHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setNewPostText(event.currentTarget.value)
+    }
+
+    const callbackHandler = () => {
+        props.callback(newPostText)
+        setNewPostText("")
+    }
 
     return (
         <section className={css.post_section}>
 
             <div>Send your post:</div>
-            <input type="text" className={css.post_input} placeholder="сделать добавление поста по кнопке..!!самому!!"/>
-            <div><input type="submit" value="SEND POST"/></div>
+            <input type="text" className={css.post_input}
+                   placeholder="Type your message"
+                   value={newPostText}
+                   onChange={onChangeEventHandler}
+            />
+            <div>
+                <Button name="Send post" callback={callbackHandler}/>
+            </div>
         </section>
     )
 

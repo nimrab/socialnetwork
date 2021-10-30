@@ -44,8 +44,22 @@ const dialogMessageData: Array<dialogMessageDataType> = [
 ]
 
 
+const addPost = (post: string) => {
 
-ReactDOM.render(<App mesData={mesData} dialogData={dialogData} dialogMessageData={dialogMessageData}/>, document.getElementById('root'));
+    mesData.push({
+        mes: post,
+        likes: 0
+    })
+
+}
+
+
+ReactDOM.render(<App
+    mesData={mesData}
+    dialogData={dialogData}
+    dialogMessageData={dialogMessageData}
+    addPost={addPost}
+/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

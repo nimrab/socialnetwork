@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import css from './SharedPosts.module.css';
 import {Post} from "./Post";
+import {v1} from 'uuid'
 import {MesPropType} from "../../../../index";
 
+type SharedPostsProps = {
+    mesData: Array<MesPropType>
+}
 
-export const SharedPosts = (props:{mesData:Array<MesPropType>}) => {
+export const SharedPosts = (props:SharedPostsProps) => {
+
+
 
 
     const allPosts = props.mesData.map(el => {
-        return <Post mes={el.mes} likes={el.likes}/>
+        return <Post key = {v1()} mes={el.mes} likes={el.likes}/>
     })
 
     return (

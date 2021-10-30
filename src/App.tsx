@@ -12,6 +12,7 @@ type AppProps = {
     mesData: Array<MesPropType>,
     dialogData: Array<dialogDataType>,
     dialogMessageData: Array<dialogMessageDataType>
+    addPost: (post:string) => void
 }
 
 
@@ -27,7 +28,7 @@ const App = (props: AppProps) => {
 
                     {/*<Route path='/profile' component={Profile}/>*/}
                     {/*<Route path='/dialogs' component={Profile}/>*/}
-                    <Route path='/profile' component={() => <Profile mesData={props.mesData}/>}/>
+                    <Route path='/profile' component={() => <Profile mesData={props.mesData} addPost={props.addPost}/>}/>
                     <Route path='/dialogs' component={() => <Dialogs dialogData={props.dialogData} dialogMessageData={props.dialogMessageData}/>}/>
 
                     {/*<Dialogs></Dialogs>*/}

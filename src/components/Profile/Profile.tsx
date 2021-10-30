@@ -4,13 +4,19 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {MesPropType} from "../../index";
 
-export const Profile = (props: {mesData: Array<MesPropType>}) => {
+
+export type ProfileProps = {
+    mesData: Array<MesPropType>
+    addPost: (post:string) => void
+}
+
+export const Profile = (props: ProfileProps) => {
 
     return (
         <div className={css.profile}>
 
             <ProfileInfo/>
-            <MyPosts mesData={props.mesData}/>
+            <MyPosts mesData={props.mesData} addPost={props.addPost}/>
 
         </div>
     )
