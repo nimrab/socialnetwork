@@ -1,3 +1,5 @@
+import {renderEntireTree} from "../render";
+
 export type MesPropType = {
     mes: string
     likes: number
@@ -71,6 +73,20 @@ let state = {
             ]
         }
     }
+
+
+
+export const addPost = (post: string) => {
+
+    state.profilePage.posts.push({
+        mes: post,
+        likes: 0
+    })
+    console.log(state.profilePage.posts)
+    renderEntireTree(state)
+
+}
+
 
 
 export default state;

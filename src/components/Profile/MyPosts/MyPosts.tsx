@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import css from './MyPosts.module.css';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-import {ProfileProps} from "../Profile";
 import {MesPropType} from "../../../redux/state";
 
 export type MyPostsProps = {
@@ -17,10 +15,10 @@ export const MyPosts = (props: MyPostsProps) => {
 
 
     const callbackHandler = (post: string) => {
-        const newPost: MesPropType = {mes: post, likes: 0}
-        const newPostArr = [newPost, ...newSharedPosts]
+        //const newPost: MesPropType = {mes: post, likes: 0}
+        //const newPostArr = [newPost, ...newSharedPosts]
+        //setNewSharedPosts(newPostArr)
         props.addPost(post)
-        setNewSharedPosts(newPostArr)
     }
 
 
