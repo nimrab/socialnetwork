@@ -14,11 +14,11 @@ export const Dialogs = (props: DialogsProps) => {
 
 
     const dialogDataMap: JSX.Element[] = props.state.dialogs.map(el => {
-        return <DialogItem id={el.id} name={el.name}/>
+        return <DialogItem key={el.id} id={el.id} name={el.name}/>
     })
 
     const dialogDataMessageMap: JSX.Element[] = props.state.messages.map(el => {
-        return <Message text={el.text}/>
+        return <Message key={el.id} text={el.text}/>
     })
 
     return (

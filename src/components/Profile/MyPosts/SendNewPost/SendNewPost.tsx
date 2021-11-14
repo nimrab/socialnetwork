@@ -1,10 +1,12 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, TextareaHTMLAttributes, useState} from "react";
 import css from "./SendNewPost.module.css";
 import {Button} from "./Button";
 
 
 type SendNewPostPropsType = {
     callback: (post:string) => void
+    newPostText:string
+    updateNewPostText: (newText:string) => void
 }
 
 export const SendNewPost = (props: SendNewPostPropsType) => {
@@ -21,19 +23,30 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
         addPost()
     }
 
+    const onPostChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(event.currentTarget.value)
+    }
+
 
     //doing through refs
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
 
-        if (newPostElement.current) {
+        if (newPostElement.current) { //свойство current получает соответствующий DOM-элемент.
             const text = newPostElement.current.value
             props.callback(text)
-
-            newPostElement.current.value = ''
         }
     }
+
+    const zeroText = () => {
+        props.updateNewPostText('')
+    }
+    const defaultText = () => {
+        props.updateNewPostText('Input your message')
+    }
+
+
     //doing through refs
 
     return (
@@ -48,9 +61,12 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
 
             <textarea
                 ref={newPostElement}
+                value={props.newPostText}
                 className={css.post_input}
-            >
-            </textarea>
+                onChange={onPostChange}
+                onClick={zeroText}
+                onBlur={defaultText}
+            />
 
             <div>
                 <Button name="Send post" callback={callbackHandler}/>

@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-import {MesPropType} from "../../../redux/state";
+import {MesPropType, profilePageType} from "../../../redux/state";
 
 export type MyPostsProps = {
-    posts: Array<MesPropType>
-    addPost: (post:string) => void
+    stateProfilePage: profilePageType
+    addPost: (post: string) => void
+    updateNewPostText: (newText:string) => void
 }
 
 
 export const MyPosts = (props: MyPostsProps) => {
 
-    let [newSharedPosts, setNewSharedPosts] = useState<Array<MesPropType>>(props.posts)
+    let [newSharedPosts, setNewSharedPosts] = useState<Array<MesPropType>>(props.stateProfilePage.posts)
 
 
     const callbackHandler = (post: string) => {
@@ -24,8 +25,14 @@ export const MyPosts = (props: MyPostsProps) => {
 
     return (
         <section>
-            <SendNewPost callback={callbackHandler}/>
-            <SharedPosts mesData={newSharedPosts}/>
+            <SendNewPost
+                callback={callbackHandler}
+                newPostText={props.stateProfilePage.newPostText}
+                updateNewPostText={props.updateNewPostText}
+            />
+            <SharedPosts
+                mesData={newSharedPosts}
+            />
         </section>
     )
 
