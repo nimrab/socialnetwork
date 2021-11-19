@@ -5,33 +5,28 @@ import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {stateType, updateNewPostText} from "./redux/state";
+import {storeType} from "./redux/state";
 
-type AppProps = {
-    state: stateType
-    addPost: (post: string) => void
-    updateNewPostText: (newText:string) => void
+type AppPropsType = {
+    store: storeType
 }
 
 
-export const App = (props: AppProps) => {
-
+export const App = (props: AppPropsType) => {
 
     return (
         <BrowserRouter>
             <div className="main_section">
                 <Header/>
-                <Navbar state={props.state.sidebar}/>
+                <Navbar state={props.store.getState().sidebar}/>
                 <div className="content">
 
-                    {/*<Route path='/profile' component={Profile}/>*/}
-                    {/*<Route path='/dialogs' component={Profile}/>*/}
                     <Route path='/profile'
                            render={
                                () => <Profile
-                                   stateProfilePage={props.state.profilePage}
-                                   addPost={props.addPost}
-                                   updateNewPostText={props.updateNewPostText}
+                                   stateProfilePage={props.store.getState().profilePage}
+                                   addPost={props.store.addPost.bind(props.store)}
+                                   updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                                />
                            }
                     />
@@ -39,14 +34,10 @@ export const App = (props: AppProps) => {
                     <Route path='/dialogs'
                            render={
                                () => <Dialogs
-                               state={props.state.dialogsPage}
+                               state={props.store.getState().dialogsPage}
                                />
                            }
                     />
-
-
-                    {/*<Dialogs></Dialogs>*/}
-                    {/*<Profile/>*/}
 
                 </div>
             </div>

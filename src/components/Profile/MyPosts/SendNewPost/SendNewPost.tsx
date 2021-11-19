@@ -42,8 +42,8 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
     const zeroText = () => {
         props.updateNewPostText('')
     }
-    const defaultText = () => {
-        props.updateNewPostText('Input your message')
+    const defaultText = (text:string) => {
+        setTimeout(() => props.updateNewPostText(text),300)
     }
 
 
@@ -65,7 +65,7 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
                 className={css.post_input}
                 onChange={onPostChange}
                 onClick={zeroText}
-                onBlur={defaultText}
+                onBlur={() => defaultText('Input your message')}
             />
 
             <div>
