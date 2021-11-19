@@ -4,22 +4,15 @@ import {Button} from "./Button";
 
 
 type SendNewPostPropsType = {
-    callback: (post:string) => void
+    addPostCallback: (post:string) => void
     newPostText:string
     updateNewPostText: (newText:string) => void
 }
 
 export const SendNewPost = (props: SendNewPostPropsType) => {
 
-    let [newPostText, setNewPostText] = useState<string>("")
-
-    const onChangeEventHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewPostText(event.currentTarget.value)
-    }
 
     const callbackHandler = () => {
-        // props.callback(newPostText)
-        // setNewPostText("")
         addPost()
     }
 
@@ -35,7 +28,7 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
 
         if (newPostElement.current) { //свойство current получает соответствующий DOM-элемент.
             const text = newPostElement.current.value
-            props.callback(text)
+            props.addPostCallback(text)
         }
     }
 
@@ -46,18 +39,12 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
         setTimeout(() => props.updateNewPostText(text),300)
     }
 
-
     //doing through refs
 
     return (
         <section className={css.post_section}>
 
             <div>Send your post:</div>
-            {/*<input type="text" className={css.post_input}*/}
-            {/*       placeholder="Type your message"*/}
-            {/*       value={newPostText}*/}
-            {/*       onChange={onChangeEventHandler}*/}
-            {/*/>*/}
 
             <textarea
                 ref={newPostElement}

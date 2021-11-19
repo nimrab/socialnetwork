@@ -1,11 +1,11 @@
 import React from "react";
 import css from './Sidebar.module.css'
 import {Friends} from "./Friends/Friends";
-import {friendsType} from "../../../redux/state";
+import {FriendsType} from "../../../redux/state";
 
 
 export type SidebarProps = {
-    friends: Array<friendsType>
+    friends: Array<FriendsType>
 }
 
 export const Sidebar = (props: SidebarProps) => {

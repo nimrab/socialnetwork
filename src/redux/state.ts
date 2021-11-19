@@ -3,53 +3,64 @@ export type MesPropType = {
     likes: number
 }
 
-export type dialogDataType = {
+export type DialogDataType = {
     id: number
     name: string
 }
 
-export type dialogMessageDataType = {
+export type DialogMessageDataType = {
     id: number
     text: string
 }
 
-export type dialogsPageType = {
-    dialogs: Array<dialogDataType>
-    messages: Array<dialogMessageDataType>
+export type DialogsPageType = {
+    dialogs: Array<DialogDataType>
+    messages: Array<DialogMessageDataType>
 }
 
-export type profilePageType = {
+export type ProfilePageType = {
     posts: Array<MesPropType>
     newPostText: string
 }
 
 
-export type sidebarType = {
-    friends: Array<friendsType>
+export type SidebarType = {
+    friends: Array<FriendsType>
 }
 
-export type friendsType = {
+export type FriendsType = {
     id: number
     name: string
 }
 
 
-export type stateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogsPageType
-    sidebar: sidebarType
+export type StateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sidebar: SidebarType
 }
 
-export type storeType = {
-    _state: stateType
-    getState: () => stateType
+export type StoreType = {
+    _state: StateType
+    getState: () => StateType
     _renderEntireTree: () => void
-    addPost: (post:string) => void
-    updateNewPostText: (newText: string) => void
+    _addPost: (post: string) => void
+    _updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
+    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
 }
 
-export const store: storeType = {
+export type addPostActionType = {
+    type: 'ADD-POST'
+    post: string
+}
+
+export type updateNewPostTextActionType = {
+    type: 'UPDATE-POST-TEXT'
+    newText: string
+}
+
+export const store: StoreType = {
 
     _state: {
         profilePage: {
@@ -93,7 +104,7 @@ export const store: storeType = {
         //waiting subscriber
     },
 
-    addPost(post:string) {
+    _addPost(post: string) {
         const newPost = {
             mes: post,
             likes: 0
@@ -104,9 +115,19 @@ export const store: storeType = {
         this._renderEntireTree()
     },
 
-    updateNewPostText(newText: string) {
+    _updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText
         this._renderEntireTree()
+    },
+
+    dispatch(action) {
+        switch (action.type) {
+            case 'ADD-POST': this._addPost(action.post)
+                break
+            case 'UPDATE-POST-TEXT': this._updateNewPostText(action.newText)
+                break
+            default: throw new Error('Switch default error')
+        }
     },
 
     subscribe(observer: () => void) {

@@ -1,11 +1,11 @@
 import React from "react";
 import css from './Friends.module.css'
-import {friendsType} from "../../../../redux/state";
+import {FriendsType} from "../../../../redux/state";
 
 
 
 export type FriendsProps = {
-    friends: Array<friendsType>
+    friends: Array<FriendsType>
 }
 
 export const Friends = (props:FriendsProps) => {

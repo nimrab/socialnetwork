@@ -1,37 +1,36 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-import {MesPropType, profilePageType} from "../../../redux/state";
+import {addPostActionType, ProfilePageType, updateNewPostTextActionType} from "../../../redux/state";
 
 export type MyPostsProps = {
-    stateProfilePage: profilePageType
-    addPost: (post: string) => void
-    updateNewPostText: (newText:string) => void
+    stateProfilePage: ProfilePageType
+    dispatch:(action: addPostActionType | updateNewPostTextActionType) => void
+    //addPost: (post: string) => void
+    //updateNewPostText: (newText:string) => void
 }
 
 
 export const MyPosts = (props: MyPostsProps) => {
 
-    let [newSharedPosts, setNewSharedPosts] = useState<Array<MesPropType>>(props.stateProfilePage.posts)
 
-
-    const callbackHandler = (post: string) => {
-        //const newPost: MesPropType = {mes: post, likes: 0}
-        //const newPostArr = [newPost, ...newSharedPosts]
-        //setNewSharedPosts(newPostArr)
-        props.addPost(post)
+    const addPostCallback = (post: string) => {
+        props.dispatch({type: 'ADD-POST', post:post})
     }
 
+    const updateNewPostText = (newText:string) => {
+        props.dispatch({type: 'UPDATE-POST-TEXT', newText: newText} )
+    }
 
     return (
         <section>
             <SendNewPost
-                callback={callbackHandler}
+                addPostCallback={addPostCallback}
                 newPostText={props.stateProfilePage.newPostText}
-                updateNewPostText={props.updateNewPostText}
+                updateNewPostText={updateNewPostText}
             />
             <SharedPosts
-                mesData={newSharedPosts}
+                mesData={props.stateProfilePage.posts}
             />
         </section>
     )
