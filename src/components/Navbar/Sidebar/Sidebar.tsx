@@ -1,7 +1,7 @@
 import React from "react";
 import css from './Sidebar.module.css'
 import {Friends} from "./Friends/Friends";
-import {FriendsType} from "../../../redux/state";
+import {FriendsType} from "../../../redux/store";
 
 
 export type SidebarProps = {

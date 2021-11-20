@@ -2,8 +2,8 @@ import React from "react";
 import css from "../../Dialogs.module.css";
 import {Textarea} from "../../../Profile/MyPosts/SendNewPost/Textarea/Textarea";
 import {Button} from "../../../Profile/MyPosts/SendNewPost/Button/Button";
-import {ActionTypes, addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../../redux/state";
-
+import {ActionTypes} from "../../../../redux/store";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../../redux/dialog-reducer";
 
 type SendNewMessagePropsType = {
     messageText: string

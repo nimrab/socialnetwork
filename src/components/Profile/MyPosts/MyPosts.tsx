@@ -1,7 +1,8 @@
 import React from 'react';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-import {ActionTypes, addPostActionCreator, ProfilePageType, updateNewPostTextActionCreator} from "../../../redux/state";
+import {ActionTypes,ProfilePageType} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 
 export type MyPostsProps = {

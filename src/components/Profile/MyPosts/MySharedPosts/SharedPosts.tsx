@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import css from './SharedPosts.module.css';
 import {Post} from "./Post";
 import {v1} from 'uuid'
-import {MesPropType} from "../../../../redux/state";
+import {MesPropType} from "../../../../redux/store";
 
 
 type SharedPostsProps = {

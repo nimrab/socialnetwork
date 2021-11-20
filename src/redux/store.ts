@@ -1,37 +1,8 @@
 import {v1} from "uuid";
+import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "./profile-reducer";
+import {addMessageActionCreator, dialogReducer, updateNewMessageTextActionCreator} from "./dialog-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
-const ADD_POST = 'ADD-POST'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
-
-export const addPostActionCreator = (post: string) => {
-    return {
-        type: ADD_POST,
-        post: post
-    } as const
-}
-
-export const addMessageActionCreator = (message: string) => {
-    return {
-        type: ADD_MESSAGE,
-        message: message
-    } as const
-}
-
-export const updateNewPostTextActionCreator = (newText: string) => {
-    return {
-        type: UPDATE_POST_TEXT,
-        newText: newText
-    } as const
-}
-
-export const updateNewMessageTextActionCreator = (newText: string) => {
-    return {
-        type: UPDATE_MESSAGE_TEXT,
-        newText: newText
-    } as const
-}
 
 export type ActionTypes =
     (
@@ -101,10 +72,6 @@ export type StoreType = {
     _state: StateType
     getState: () => StateType
     _renderEntireTree: () => void
-    _addPost: (post: string) => void
-    _addMessage: (message: string) => void
-    _updateNewPostText: (newText: string) => void
-    _updateMessageText: (newText: string) => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
@@ -154,53 +121,12 @@ export const store: StoreType = {
         //waiting subscriber
     },
 
-    _addPost(post: string) {
-        const newPost = {
-            mes: post,
-            likes: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._renderEntireTree()
-    },
-
-    _addMessage(message: string) {
-        const newMessage = {
-            id: v1(),
-            text: message
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._renderEntireTree()
-    },
-
-    _updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._renderEntireTree()
-    },
-
-    _updateMessageText(newText: string) {
-        this._state.dialogsPage.newMessageText = newText
-        this._renderEntireTree()
-    },
 
     dispatch(action) {
-        switch (action.type) {
-            case 'ADD-POST':
-                this._addPost(action.post)
-                break
-            case 'UPDATE-POST-TEXT':
-                this._updateNewPostText(action.newText)
-                break
-            case 'ADD-MESSAGE':
-                this._addMessage(action.message)
-                break
-            case 'UPDATE-MESSAGE-TEXT':
-                this._updateMessageText(action.newText)
-                break
-            default:
-                throw new Error('Switch default error')
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._renderEntireTree()
     },
 
     subscribe(observer: () => void) {
