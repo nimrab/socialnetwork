@@ -5,16 +5,16 @@ import {Textarea} from "./Textarea/Textarea";
 
 
 type SendNewPostPropsType = {
-    addPostCallback: (post:string) => void
-    newPostText:string
-    updateNewPostText: (newText:string) => void
+    addPostCallback: (post: string) => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
 }
 
 export const SendNewPost = (props: SendNewPostPropsType) => {
 
 
     const buttonCallbackHandler = () => {
-            addPost()
+        addPost()
     }
 
     const onPostChange = (value: string) => {
@@ -22,14 +22,8 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
     }
 
 
-    //doing through refs
-    const ref = React.createRef<HTMLTextAreaElement>()
-
     const addPost = () => {
-
-        if (ref.current) { //свойство current получает соответствующий DOM-элемент.
-            props.addPostCallback(props.newPostText)
-        }
+        props.addPostCallback(props.newPostText)
     }
 
     //doing through refs
@@ -41,7 +35,6 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
 
 
             <Textarea
-                ref={ref}
                 value={props.newPostText}
                 onChange={onPostChange}
                 placeholder='Input your post'

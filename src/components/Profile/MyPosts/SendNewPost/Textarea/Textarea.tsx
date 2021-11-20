@@ -11,7 +11,7 @@ export type TextareaPropsType = {
 }
 
 
-export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaPropsType>((props, ref) => {
+export const Textarea = (props: TextareaPropsType) => {
 
 
     const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,7 +22,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaPropsType>
     return (
 
         <textarea
-            ref={ref}
             value={props.value}
             onChange={onChange}
             className={css.post_input}
@@ -31,4 +30,4 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaPropsType>
 
     )
 
-})
+}

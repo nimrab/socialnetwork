@@ -14,13 +14,8 @@ type SendNewMessagePropsType = {
 export const SendNewMessage = (props: SendNewMessagePropsType) => {
 
 
-    const ref = React.createRef<HTMLTextAreaElement>()
-
-
     const addMessage = () => {
-        if (ref.current) {
-            props.dispatch(addMessageActionCreator(props.messageText))
-        }
+        props.dispatch(addMessageActionCreator(props.messageText))
     }
 
     const updateNewMessageText = (newText: string) => {
@@ -28,14 +23,11 @@ export const SendNewMessage = (props: SendNewMessagePropsType) => {
     }
 
 
-
-
     return (
         <div className={css.send_message_box}>
 
             <div>
                 <Textarea
-                    ref={ref}
                     value={props.messageText}
                     onChange={updateNewMessageText}
                     placeholder='Input your message'
