@@ -7,8 +7,6 @@ import {ActionTypes, addPostActionCreator, ProfilePageType, updateNewPostTextAct
 export type MyPostsProps = {
     stateProfilePage: ProfilePageType
     dispatch:(action:ActionTypes) => void
-    //addPost: (post: string) => void
-    //updateNewPostText: (newText:string) => void
 }
 
 

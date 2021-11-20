@@ -4,7 +4,7 @@
     height: 70vh;
 }
 
-.dialogs_items {
+.dialogs_items_main {
     outline: 1px solid black;
     background-color: lightblue;
     padding: 20px;
@@ -12,9 +12,12 @@
     flex-direction: column;
 }
 
-.dialogs_messages {
+.dialogs_message_main {
     outline: 1px solid black;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
@@ -26,3 +29,11 @@
     cursor: pointer;
 }
 
+
+.messages {
+    outline: 1px solid black;
+
+}
+.send_message_box {
+    outline: 1px solid black;
+}

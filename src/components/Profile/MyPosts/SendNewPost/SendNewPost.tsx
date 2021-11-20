@@ -1,6 +1,7 @@
 import React, {ChangeEvent, TextareaHTMLAttributes, useState} from "react";
 import css from "./SendNewPost.module.css";
-import {Button} from "./Button";
+import {Button} from "./Button/Button";
+import {Textarea} from "./Textarea/Textarea";
 
 
 type SendNewPostPropsType = {
@@ -12,22 +13,21 @@ type SendNewPostPropsType = {
 export const SendNewPost = (props: SendNewPostPropsType) => {
 
 
-    const callbackHandler = () => {
-        addPost()
+    const buttonCallbackHandler = () => {
+            addPost()
     }
 
-    const onPostChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(event.currentTarget.value)
+    const onPostChange = (value: string) => {
+        props.updateNewPostText(value)
     }
 
 
     //doing through refs
-    const newPostElement = React.createRef<HTMLTextAreaElement>()
+    const ref = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
 
-        if (newPostElement.current) { //свойство current получает соответствующий DOM-элемент.
-            //const text = newPostElement.current.value
+        if (ref.current) { //свойство current получает соответствующий DOM-элемент.
             props.addPostCallback(props.newPostText)
         }
     }
@@ -35,8 +35,8 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
     const zeroText = () => {
         props.updateNewPostText('')
     }
-    const defaultText = (text:string) => {
-        setTimeout(() => props.updateNewPostText(text),300)
+    const defaultText = () => {
+        setTimeout(() => props.updateNewPostText('Input your message'),100)
     }
 
     //doing through refs
@@ -46,17 +46,17 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
 
             <div>Send your post:</div>
 
-            <textarea
-                ref={newPostElement}
+
+            <Textarea
+                ref={ref}
                 value={props.newPostText}
-                className={css.post_input}
                 onChange={onPostChange}
                 onClick={zeroText}
-                onBlur={() => defaultText('Input your message')}
+                onBlur={defaultText}
             />
 
             <div>
-                <Button name="Send post" callback={callbackHandler}/>
+                <Button name="Send post" callback={buttonCallbackHandler}/>
             </div>
         </section>
     )

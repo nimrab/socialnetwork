@@ -34,6 +34,7 @@ export const App = (props: AppPropsType) => {
                            render={
                                () => <Dialogs
                                state={props.store.getState().dialogsPage}
+                               dispatch={props.store.dispatch.bind(props.store)}
                                />
                            }
                     />

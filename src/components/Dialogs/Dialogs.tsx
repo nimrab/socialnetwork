@@ -1,13 +1,15 @@
 import React from "react";
 import css from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./DialogMessage/DialogMessage";
-import {DialogsPageType} from "../../redux/state";
+import {Message} from "./DialogMessage/Messages/DialogMessage";
+import {ActionTypes, DialogsPageType} from "../../redux/state";
+import {SendNewMessage} from "./DialogMessage/SendNewMessage/SendNewMessage";
 
 
 
 export type DialogsProps = {
     state:DialogsPageType
+    dispatch:(action:ActionTypes) => void
 }
 
 export const Dialogs = (props: DialogsProps) => {
@@ -23,12 +25,22 @@ export const Dialogs = (props: DialogsProps) => {
 
     return (
         <section className={css.dialogs}>
-            <div className={css.dialogs_items}>
+
+            <div className={css.dialogs_items_main}>
                 {dialogDataMap}
             </div>
-            <div className={css.dialogs_messages}>
-                {dialogDataMessageMap}
-            </div>
+
+            <section className={css.dialogs_message_main}>
+
+                <div className={css.messages}> {dialogDataMessageMap} </div>
+
+                <SendNewMessage
+                messageText={props.state.newMessageText}
+                dispatch={props.dispatch}
+                />
+
+
+            </section>
         </section>
     )
 }

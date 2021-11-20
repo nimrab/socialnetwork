@@ -1,5 +1,9 @@
+import {v1} from "uuid";
+
 const ADD_POST = 'ADD-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
+const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
 
 export const addPostActionCreator = (post: string) => {
     return {
@@ -8,6 +12,12 @@ export const addPostActionCreator = (post: string) => {
     } as const
 }
 
+export const addMessageActionCreator = (message: string) => {
+    return {
+        type: ADD_MESSAGE,
+        message: message
+    } as const
+}
 
 export const updateNewPostTextActionCreator = (newText: string) => {
     return {
@@ -16,7 +26,22 @@ export const updateNewPostTextActionCreator = (newText: string) => {
     } as const
 }
 
-export type ActionTypes = ReturnType<typeof addPostActionCreator>  | ReturnType<typeof updateNewPostTextActionCreator>
+export const updateNewMessageTextActionCreator = (newText: string) => {
+    return {
+        type: UPDATE_MESSAGE_TEXT,
+        newText: newText
+    } as const
+}
+
+export type ActionTypes =
+    (
+        ReturnType<typeof addPostActionCreator> |
+        ReturnType<typeof updateNewPostTextActionCreator> |
+        ReturnType<typeof addMessageActionCreator> |
+        ReturnType<typeof updateNewMessageTextActionCreator>
+
+        )
+
 
 // export type addPostActionType = {
 //     type: 'ADD-POST'
@@ -29,25 +54,25 @@ export type ActionTypes = ReturnType<typeof addPostActionCreator>  | ReturnType<
 // }
 
 
-
 export type MesPropType = {
     mes: string
     likes: number
 }
 
 export type DialogDataType = {
-    id: number
+    id: string
     name: string
 }
 
 export type DialogMessageDataType = {
-    id: number
+    id: string
     text: string
 }
 
 export type DialogsPageType = {
     dialogs: Array<DialogDataType>
     messages: Array<DialogMessageDataType>
+    newMessageText: string
 }
 
 export type ProfilePageType = {
@@ -61,7 +86,7 @@ export type SidebarType = {
 }
 
 export type FriendsType = {
-    id: number
+    id: string
     name: string
 }
 
@@ -77,12 +102,12 @@ export type StoreType = {
     getState: () => StateType
     _renderEntireTree: () => void
     _addPost: (post: string) => void
+    _addMessage: (message: string) => void
     _updateNewPostText: (newText: string) => void
+    _updateMessageText: (newText: string) => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
-
-
 
 
 export const store: StoreType = {
@@ -98,25 +123,25 @@ export const store: StoreType = {
         },
         dialogsPage: {
             dialogs: [
-                {id: 1, name: "MyFriend1"},
-                {id: 2, name: "MyFriend2"},
-                {id: 3, name: "MyFriend3"},
-                {id: 4, name: "MyFriend4"},
-                {id: 5, name: "MyFriend5"},
-                {id: 6, name: "MyFriend6"}
+                {id: v1(), name: "MyFriend1"},
+                {id: v1(), name: "MyFriend2"},
+                {id: v1(), name: "MyFriend3"},
+                {id: v1(), name: "MyFriend4"},
+                {id: v1(), name: "MyFriend5"},
+                {id: v1(), name: "MyFriend6"}
             ],
             messages: [
-                {id: 1, text: "hello"},
-                {id: 2, text: "wowow"},
-                {id: 3, text: "fufufu"}
-            ]
+                {id: v1(), text: "hello"},
+                {id: v1(), text: "wowow"},
+                {id: v1(), text: "fufufu"}
+            ],
+            newMessageText: 'Input your message'
         },
-
         sidebar: {
             friends: [
-                {id: 1, name: "Fedor"},
-                {id: 2, name: "Sergey"},
-                {id: 3, name: "Vasiliy"},
+                {id: v1(), name: "Fedor"},
+                {id: v1(), name: "Sergey"},
+                {id: v1(), name: "Vasiliy"},
             ]
         }
     },
@@ -134,14 +159,28 @@ export const store: StoreType = {
             mes: post,
             likes: 0
         }
-
         this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
+        this._state.profilePage.newPostText = 'Input your post'
+        this._renderEntireTree()
+    },
+
+    _addMessage(message: string) {
+        const newMessage = {
+            id: v1(),
+            text: message
+        }
+        this._state.dialogsPage.messages.push(newMessage)
+        this._state.dialogsPage.newMessageText = 'Input your message'
         this._renderEntireTree()
     },
 
     _updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText
+        this._renderEntireTree()
+    },
+
+    _updateMessageText(newText: string) {
+        this._state.dialogsPage.newMessageText = newText
         this._renderEntireTree()
     },
 
@@ -152,6 +191,12 @@ export const store: StoreType = {
                 break
             case 'UPDATE-POST-TEXT':
                 this._updateNewPostText(action.newText)
+                break
+            case 'ADD-MESSAGE':
+                this._addMessage(action.message)
+                break
+            case 'UPDATE-MESSAGE-TEXT':
+                this._updateMessageText(action.newText)
                 break
             default:
                 throw new Error('Switch default error')
