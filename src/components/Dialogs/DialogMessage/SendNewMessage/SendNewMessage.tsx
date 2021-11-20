@@ -27,12 +27,7 @@ export const SendNewMessage = (props: SendNewMessagePropsType) => {
         props.dispatch(updateNewMessageTextActionCreator(newText))
     }
 
-    const zeroText = () => {
-        props.dispatch(updateNewMessageTextActionCreator(''))
-    }
-    const defaultText = () => {
-        setTimeout(() => props.dispatch(updateNewMessageTextActionCreator('Input your message')), 100)
-    }
+
 
 
     return (
@@ -43,8 +38,7 @@ export const SendNewMessage = (props: SendNewMessagePropsType) => {
                     ref={ref}
                     value={props.messageText}
                     onChange={updateNewMessageText}
-                    onClick={zeroText}
-                    onBlur={defaultText}
+                    placeholder='Input your message'
                 />
             </div>
             <div>

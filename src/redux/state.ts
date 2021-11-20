@@ -119,7 +119,7 @@ export const store: StoreType = {
                 {mes: "hello bro1", likes: 330},
                 {mes: "hello bro2", likes: 110}
             ],
-            newPostText: 'Input your message'
+            newPostText: ''
         },
         dialogsPage: {
             dialogs: [
@@ -135,7 +135,7 @@ export const store: StoreType = {
                 {id: v1(), text: "wowow"},
                 {id: v1(), text: "fufufu"}
             ],
-            newMessageText: 'Input your message'
+            newMessageText: ''
         },
         sidebar: {
             friends: [
@@ -160,7 +160,7 @@ export const store: StoreType = {
             likes: 0
         }
         this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = 'Input your post'
+        this._state.profilePage.newPostText = ''
         this._renderEntireTree()
     },
 
@@ -170,7 +170,7 @@ export const store: StoreType = {
             text: message
         }
         this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = 'Input your message'
+        this._state.dialogsPage.newMessageText = ''
         this._renderEntireTree()
     },
 

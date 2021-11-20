@@ -5,8 +5,9 @@ import css from "../SendNewPost.module.css";
 export type TextareaPropsType = {
     value: string
     onChange: (value: string) => void
-    onClick: () => void
-    onBlur: () => void
+    placeholder: string
+    onClick?: () => void
+    onBlur?: () => void
 }
 
 
@@ -24,9 +25,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaPropsType>
             ref={ref}
             value={props.value}
             onChange={onChange}
-            onClick={props.onClick}
-            onBlur={props.onBlur}
             className={css.post_input}
+            placeholder={props.placeholder}
         />
 
     )

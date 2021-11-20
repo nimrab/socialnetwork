@@ -1,4 +1,4 @@
-import React, {ChangeEvent, TextareaHTMLAttributes, useState} from "react";
+import React from "react";
 import css from "./SendNewPost.module.css";
 import {Button} from "./Button/Button";
 import {Textarea} from "./Textarea/Textarea";
@@ -32,13 +32,6 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
         }
     }
 
-    const zeroText = () => {
-        props.updateNewPostText('')
-    }
-    const defaultText = () => {
-        setTimeout(() => props.updateNewPostText('Input your message'),100)
-    }
-
     //doing through refs
 
     return (
@@ -51,8 +44,7 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
                 ref={ref}
                 value={props.newPostText}
                 onChange={onPostChange}
-                onClick={zeroText}
-                onBlur={defaultText}
+                placeholder='Input your post'
             />
 
             <div>
