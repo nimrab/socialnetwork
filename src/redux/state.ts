@@ -1,3 +1,35 @@
+const ADD_POST = 'ADD-POST'
+const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
+
+export const addPostActionCreator = (post: string) => {
+    return {
+        type: ADD_POST,
+        post: post
+    } as const
+}
+
+
+export const updateNewPostTextActionCreator = (newText: string) => {
+    return {
+        type: UPDATE_POST_TEXT,
+        newText: newText
+    } as const
+}
+
+export type ActionTypes = ReturnType<typeof addPostActionCreator>  | ReturnType<typeof updateNewPostTextActionCreator>
+
+// export type addPostActionType = {
+//     type: 'ADD-POST'
+//     post: string
+// }
+
+// export type updateNewPostTextActionType = {
+//     type: 'UPDATE-POST-TEXT'
+//     newText: string
+// }
+
+
+
 export type MesPropType = {
     mes: string
     likes: number
@@ -47,18 +79,11 @@ export type StoreType = {
     _addPost: (post: string) => void
     _updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
-    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
-export type addPostActionType = {
-    type: 'ADD-POST'
-    post: string
-}
 
-export type updateNewPostTextActionType = {
-    type: 'UPDATE-POST-TEXT'
-    newText: string
-}
+
 
 export const store: StoreType = {
 
@@ -122,11 +147,14 @@ export const store: StoreType = {
 
     dispatch(action) {
         switch (action.type) {
-            case 'ADD-POST': this._addPost(action.post)
+            case 'ADD-POST':
+                this._addPost(action.post)
                 break
-            case 'UPDATE-POST-TEXT': this._updateNewPostText(action.newText)
+            case 'UPDATE-POST-TEXT':
+                this._updateNewPostText(action.newText)
                 break
-            default: throw new Error('Switch default error')
+            default:
+                throw new Error('Switch default error')
         }
     },
 

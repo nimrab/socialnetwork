@@ -1,11 +1,12 @@
 import React from 'react';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-import {addPostActionType, ProfilePageType, updateNewPostTextActionType} from "../../../redux/state";
+import {ActionTypes, addPostActionCreator, ProfilePageType, updateNewPostTextActionCreator} from "../../../redux/state";
+
 
 export type MyPostsProps = {
     stateProfilePage: ProfilePageType
-    dispatch:(action: addPostActionType | updateNewPostTextActionType) => void
+    dispatch:(action:ActionTypes) => void
     //addPost: (post: string) => void
     //updateNewPostText: (newText:string) => void
 }
@@ -15,11 +16,11 @@ export const MyPosts = (props: MyPostsProps) => {
 
 
     const addPostCallback = (post: string) => {
-        props.dispatch({type: 'ADD-POST', post:post})
+        props.dispatch(addPostActionCreator(post))
     }
 
     const updateNewPostText = (newText:string) => {
-        props.dispatch({type: 'UPDATE-POST-TEXT', newText: newText} )
+        props.dispatch(updateNewPostTextActionCreator(newText) )
     }
 
     return (

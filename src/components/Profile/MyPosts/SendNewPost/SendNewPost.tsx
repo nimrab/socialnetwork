@@ -27,8 +27,8 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
     const addPost = () => {
 
         if (newPostElement.current) { //свойство current получает соответствующий DOM-элемент.
-            const text = newPostElement.current.value
-            props.addPostCallback(text)
+            //const text = newPostElement.current.value
+            props.addPostCallback(props.newPostText)
         }
     }
 
