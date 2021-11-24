@@ -78,7 +78,6 @@ export type StoreType = {
 
 
 export const store: StoreType = {
-
     _state: {
         profilePage: {
             posts: [

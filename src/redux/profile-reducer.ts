@@ -18,8 +18,16 @@ export const updateNewPostTextActionCreator = (newText: string) => {
     } as const
 }
 
+const initialState = {
+    posts: [
+        {mes: "hello bro", likes: 300},
+        {mes: "hello bro1", likes: 330},
+        {mes: "hello bro2", likes: 110}
+    ],
+    newPostText: ''
+}
 
-export const profileReducer = (state: ProfilePageType, action: ActionTypes): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes): ProfilePageType => {
 
     switch (action.type) {
 

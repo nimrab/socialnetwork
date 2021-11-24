@@ -8,7 +8,8 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {StoreType} from "./redux/store";
 
 type AppPropsType = {
-    store: StoreType
+    // store: StoreType
+    store:any
 }
 
 

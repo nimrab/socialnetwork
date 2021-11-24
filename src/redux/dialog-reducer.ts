@@ -19,10 +19,24 @@ export const updateNewMessageTextActionCreator = (newText: string) => {
     } as const
 }
 
+const initialState = {
+    dialogs: [
+        {id: v1(), name: "MyFriend1"},
+        {id: v1(), name: "MyFriend2"},
+        {id: v1(), name: "MyFriend3"},
+        {id: v1(), name: "MyFriend4"},
+        {id: v1(), name: "MyFriend5"},
+        {id: v1(), name: "MyFriend6"}
+    ],
+    messages: [
+        {id: v1(), text: "hello"},
+        {id: v1(), text: "wowow"},
+        {id: v1(), text: "fufufu"}
+    ],
+    newMessageText: ''
+}
 
-
-export const dialogReducer = (state: DialogsPageType, action: ActionTypes): DialogsPageType => {
-
+export const dialogReducer = (state: DialogsPageType=initialState, action: ActionTypes): DialogsPageType => {
     switch (action.type) {
 
         case ADD_MESSAGE:
