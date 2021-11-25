@@ -6,8 +6,9 @@ import {Profile} from './components/Profile/Profile';
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {StoreType} from "./redux/store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-type AppPropsType = {
+export type AppPropsType = {
     // store: StoreType
     store:any
 }
@@ -41,6 +42,7 @@ export const App = (props: AppPropsType) => {
                     />
 
                 </div>
+                <DialogsContainer/>
             </div>
         </BrowserRouter>
     )

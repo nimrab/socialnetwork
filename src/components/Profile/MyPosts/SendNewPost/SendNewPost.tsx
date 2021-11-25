@@ -26,7 +26,6 @@ export const SendNewPost = (props: SendNewPostPropsType) => {
         props.addPostCallback(props.newPostText)
     }
 
-    //doing through refs
 
     return (
         <section className={css.post_section}>

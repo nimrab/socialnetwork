@@ -1,26 +1,27 @@
 import React from "react";
 import css from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./DialogMessage/Messages/DialogMessage";
-import {ActionTypes, DialogsPageType} from "../../redux/store";
+import {DialogMessage} from "./DialogMessage/Messages/DialogMessage";
+import {DialogsPageType} from "../../redux/store";
 import {SendNewMessage} from "./DialogMessage/SendNewMessage/SendNewMessage";
 
 
-
 export type DialogsProps = {
-    state:DialogsPageType
-    dispatch:(action:ActionTypes) => void
+    dialogPage:DialogsPageType
+    addMessage: () => void
+    updateMessageText: (newSymbol: string) => void
+
 }
 
 export const Dialogs = (props: DialogsProps) => {
 
 
-    const dialogDataMap: JSX.Element[] = props.state.dialogs.map(el => {
+    const dialogDataMap: JSX.Element[] = props.dialogPage.dialogs.map(el => {
         return <DialogItem key={el.id} id={el.id} name={el.name}/>
     })
 
-    const dialogDataMessageMap: JSX.Element[] = props.state.messages.map(el => {
-        return <Message key={el.id} text={el.text}/>
+    const dialogDataMessageMap: JSX.Element[] = props.dialogPage.messages.map(el => {
+        return <DialogMessage key={el.id} text={el.text}/>
     })
 
     return (
@@ -35,8 +36,9 @@ export const Dialogs = (props: DialogsProps) => {
                 <div className={css.messages}> {dialogDataMessageMap} </div>
 
                 <SendNewMessage
-                messageText={props.state.newMessageText}
-                dispatch={props.dispatch}
+                messageText={props.dialogPage.newMessageText}
+                addMessage={props.addMessage}
+                updateMessageText={props.updateMessageText}
                 />
 
 

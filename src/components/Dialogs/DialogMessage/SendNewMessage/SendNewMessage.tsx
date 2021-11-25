@@ -1,26 +1,27 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import css from "../../Dialogs.module.css";
 import {Textarea} from "../../../Profile/MyPosts/SendNewPost/Textarea/Textarea";
 import {Button} from "../../../Profile/MyPosts/SendNewPost/Button/Button";
-import {ActionTypes} from "../../../../redux/store";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../../redux/dialog-reducer";
 
 type SendNewMessagePropsType = {
     messageText: string
-    dispatch: (action: ActionTypes) => void
+    addMessage: () => void
+    updateMessageText: (newSymbol: string) => void
 }
 
 
 export const SendNewMessage = (props: SendNewMessagePropsType) => {
 
-
     const addMessage = () => {
-        props.dispatch(addMessageActionCreator(props.messageText))
+        props.addMessage()
     }
 
-    const updateNewMessageText = (newText: string) => {
-        props.dispatch(updateNewMessageTextActionCreator(newText))
+    const updateMessageText = (event:ChangeEvent<HTMLTextAreaElement>) => {
+        const newSymbol = event.currentTarget.value
+        props.updateMessageText(newSymbol)
     }
+
+
 
 
     return (
@@ -29,7 +30,7 @@ export const SendNewMessage = (props: SendNewMessagePropsType) => {
             <div>
                 <Textarea
                     value={props.messageText}
-                    onChange={updateNewMessageText}
+                    onChange={updateMessageText}
                     placeholder='Input your message'
                 />
             </div>

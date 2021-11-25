@@ -4,15 +4,14 @@ import {v1} from "uuid";
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
 
-export const addMessageActionCreator = (message: string) => {
+export const addMessageActionCreator = () => {
     return {
         type: ADD_MESSAGE,
-        message: message
     } as const
 }
 
 
-export const updateNewMessageTextActionCreator = (newText: string) => {
+export const updateMessageTextActionCreator = (newText: string) => {
     return {
         type: UPDATE_MESSAGE_TEXT,
         newText: newText
@@ -42,9 +41,9 @@ export const dialogReducer = (state: DialogsPageType=initialState, action: Actio
         case ADD_MESSAGE:
             const newMessage = {
                 id: v1(),
-                text: action.message
+                text: state.newMessageText
             }
-            state.messages.push(newMessage)
+            state.messages = [...state.messages, newMessage]
             state.newMessageText = ''
             return state
 
