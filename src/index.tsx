@@ -7,17 +7,22 @@ import {store} from "./redux/redux-store";
 import {Provider} from "react-redux";
 
 
-export const renderEntireTree = () => {
+// export const renderEntireTree = () => {
+//
+//     ReactDOM.render(
+//         <Provider store={store}>
+//             <App  />
+//         </Provider>
+//         , document.getElementById('root'));
+// }
+// renderEntireTree()
+// store.subscribe(renderEntireTree)
 
-    ReactDOM.render(
+ReactDOM.render(
         <Provider store={store}>
             <App  />
         </Provider>
         , document.getElementById('root'));
-
-}
-renderEntireTree()
-store.subscribe(renderEntireTree)
 
 
 serviceWorker.unregister();
