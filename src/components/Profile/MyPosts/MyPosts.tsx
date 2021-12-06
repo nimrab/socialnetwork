@@ -1,36 +1,28 @@
 import React from 'react';
 import {SharedPosts} from './MySharedPosts/SharedPosts'
 import {SendNewPost} from './SendNewPost/SendNewPost';
-import {ActionTypes,ProfilePageType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
 
-export type MyPostsProps = {
-    stateProfilePage: ProfilePageType
-    dispatch:(action:ActionTypes) => void
-}
+// export type MyPostsProps = {
+//     profilePage: ProfilePageType
+//     addPost: () => void
+//     updateNewPostText: (newSymbol: string) => void
+// }
 
 
-export const MyPosts = (props: MyPostsProps) => {
+export const MyPosts = (props: MyPostsPropsType) => {
 
-
-    const addPostCallback = (post: string) => {
-        props.dispatch(addPostActionCreator(post))
-    }
-
-    const updateNewPostText = (newText:string) => {
-        props.dispatch(updateNewPostTextActionCreator(newText) )
-    }
 
     return (
         <section>
             <SendNewPost
-                addPostCallback={addPostCallback}
-                newPostText={props.stateProfilePage.newPostText}
-                updateNewPostText={updateNewPostText}
+                newPostText={props.profilePage.newPostText}
+                addPost={props.addPost}
+                updateNewPostText={props.updateNewPostText}
             />
             <SharedPosts
-                mesData={props.stateProfilePage.posts}
+                mesData={props.profilePage.posts}
             />
         </section>
     )

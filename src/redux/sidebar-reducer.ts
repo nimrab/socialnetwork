@@ -3,7 +3,7 @@ import {v1} from "uuid";
 
 
 
-const initialState = {
+const initialState:SidebarType = {
     friends: [
         {id: v1(), name: "Fedor"},
         {id: v1(), name: "Sergey"},

@@ -4,23 +4,24 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./DialogMessage/Messages/DialogMessage";
 import {DialogsPageType} from "../../redux/store";
 import {SendNewMessage} from "./DialogMessage/SendNewMessage/SendNewMessage";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-export type DialogsProps = {
-    dialogPage:DialogsPageType
-    addMessage: () => void
-    updateMessageText: (newSymbol: string) => void
+// export type DialogsProps = {
+//     dialogsPage:DialogsPageType
+//     addMessage: () => void
+//     updateMessageText: (newSymbol: string) => void
+//
+// }
 
-}
-
-export const Dialogs = (props: DialogsProps) => {
+export const Dialogs = (props: DialogsPropsType) => {
 
 
-    const dialogDataMap: JSX.Element[] = props.dialogPage.dialogs.map(el => {
+    const dialogDataMap: JSX.Element[] = props.dialogsPage.dialogs.map(el => {
         return <DialogItem key={el.id} id={el.id} name={el.name}/>
     })
 
-    const dialogDataMessageMap: JSX.Element[] = props.dialogPage.messages.map(el => {
+    const dialogDataMessageMap: JSX.Element[] = props.dialogsPage.messages.map(el => {
         return <DialogMessage key={el.id} text={el.text}/>
     })
 
@@ -36,7 +37,7 @@ export const Dialogs = (props: DialogsProps) => {
                 <div className={css.messages}> {dialogDataMessageMap} </div>
 
                 <SendNewMessage
-                messageText={props.dialogPage.newMessageText}
+                messageText={props.dialogsPage.newMessageText}
                 addMessage={props.addMessage}
                 updateMessageText={props.updateMessageText}
                 />

@@ -5,25 +5,21 @@ import {Textarea} from "./Textarea/Textarea";
 
 
 type SendNewPostPropsType = {
-    addPostCallback: (post: string) => void
     newPostText: string
-    updateNewPostText: (newText: string) => void
+    addPost: () => void
+    updateNewPostText: (newSymbol: string) => void
+
 }
 
 export const SendNewPost = (props: SendNewPostPropsType) => {
 
 
     const buttonCallbackHandler = () => {
-        addPost()
+        props.addPost()
     }
 
     const onPostChange = (value: string) => {
         props.updateNewPostText(value)
-    }
-
-
-    const addPost = () => {
-        props.addPostCallback(props.newPostText)
     }
 
 

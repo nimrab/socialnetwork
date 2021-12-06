@@ -18,7 +18,8 @@ export const updateMessageTextActionCreator = (newText: string) => {
     } as const
 }
 
-const initialState = {
+const initialState: DialogsPageType = {
+
     dialogs: [
         {id: v1(), name: "MyFriend1"},
         {id: v1(), name: "MyFriend2"},
@@ -35,7 +36,8 @@ const initialState = {
     newMessageText: ''
 }
 
-export const dialogReducer = (state: DialogsPageType=initialState, action: ActionTypes): DialogsPageType => {
+
+export const dialogReducer = (state: DialogsPageType = initialState, action: ActionTypes): DialogsPageType => {
     switch (action.type) {
 
         case ADD_MESSAGE:
@@ -43,13 +45,13 @@ export const dialogReducer = (state: DialogsPageType=initialState, action: Actio
                 id: v1(),
                 text: state.newMessageText
             }
-            state.messages = [...state.messages, newMessage]
-            state.newMessageText = ''
-            return state
+            // state.messages = [...state.messages, newMessage]
+            // state.newMessageText = ''
+            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
 
         case UPDATE_MESSAGE_TEXT:
-            state.newMessageText = action.newText
-            return state
+            // state.newMessageText = action.newText
+            return {...state, newMessageText: action.newText}
 
         default:
             return state

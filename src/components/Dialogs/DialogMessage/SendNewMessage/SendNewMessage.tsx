@@ -16,12 +16,9 @@ export const SendNewMessage = (props: SendNewMessagePropsType) => {
         props.addMessage()
     }
 
-    const updateMessageText = (event:ChangeEvent<HTMLTextAreaElement>) => {
-        const newSymbol = event.currentTarget.value
-        props.updateMessageText(newSymbol)
+    const updateMessageText = (value: string) => {
+        props.updateMessageText(value)
     }
-
-
 
 
     return (

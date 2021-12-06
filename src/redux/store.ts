@@ -1,7 +1,8 @@
 import {v1} from "uuid";
 import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "./profile-reducer";
-import {addMessageActionCreator, dialogReducer, updateNewMessageTextActionCreator} from "./dialog-reducer";
+import {addMessageActionCreator, dialogReducer, updateMessageTextActionCreator} from "./dialog-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
+import {rootReducer} from "./redux-store";
 
 
 export type ActionTypes =
@@ -9,20 +10,8 @@ export type ActionTypes =
         ReturnType<typeof addPostActionCreator> |
         ReturnType<typeof updateNewPostTextActionCreator> |
         ReturnType<typeof addMessageActionCreator> |
-        ReturnType<typeof updateNewMessageTextActionCreator>
-
+        ReturnType<typeof updateMessageTextActionCreator>
         )
-
-
-// export type addPostActionType = {
-//     type: 'ADD-POST'
-//     post: string
-// }
-
-// export type updateNewPostTextActionType = {
-//     type: 'UPDATE-POST-TEXT'
-//     newText: string
-// }
 
 
 export type MesPropType = {
@@ -75,6 +64,11 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
+
+
+
+export type ReduxStateType = ReturnType<typeof rootReducer>
+
 
 
 export const store: StoreType = {
