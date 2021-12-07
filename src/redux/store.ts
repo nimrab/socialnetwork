@@ -50,6 +50,19 @@ export type FriendsType = {
     name: string
 }
 
+type UsersLocationType = {
+    city: string
+    country: string
+}
+
+export type UsersType = {
+    id: string
+    followed: boolean
+    name: string
+    status: string
+    location: UsersLocationType
+}
+
 
 export type StateType = {
     profilePage: ProfilePageType

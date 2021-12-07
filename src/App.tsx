@@ -23,6 +23,8 @@ export const App = (props: AppPropsType) => {
 
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
 
+                    <Route path='/users' render={() => <div>Users menu</div>}/>
+
                 </div>
             </div>
         </BrowserRouter>
