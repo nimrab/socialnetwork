@@ -42,7 +42,7 @@ type mapDispatchToPropsType = {
     updateNewPostText: (newText: string) => void
 }
 
-const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
+const mapStateToProps = (state: mapStateToPropsType): mapStateToPropsType => {
     return {
         profilePage: state.profilePage
     }

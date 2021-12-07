@@ -2,8 +2,7 @@ import {v1} from "uuid";
 import {UsersType} from "./store";
 
 
-const ADD_USER = 'ADD-USER'
-const DELETE_USER = 'DELETE-USER'
+const ADD_MORE_USERS = 'ADD-MORE-USERS'
 const FOLLOW_USER = 'FOLLOW-USER'
 const UNFOLLOW_USER = 'UNFOLLOW-USER'
 
@@ -33,22 +32,15 @@ const initialState: any = {
 }
 
 
-type profileReducerType = FollowACType | UnfollowACType | AddUserACType
+type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersACType
 
 export const profileReducer = (state: InitialStateType = initialState, action: profileReducerType): InitialStateType => {
 
     switch (action.type) {
 
-        case ADD_USER:
-            const newUser = {
-                id: v1(),
-                followed: false,
-                name: action.name,
-                status: '',
-                location: {city: action.city, country: action.country}
-            }
+        case ADD_MORE_USERS:
 
-            return {...state, users: [...state.users, newUser]}
+            return {...state, users: [...state.users, ...action.users]}
 
 
         case FOLLOW_USER:
@@ -63,33 +55,30 @@ export const profileReducer = (state: InitialStateType = initialState, action: p
 }
 
 
-type FollowACType = ReturnType<typeof followAC>
+type FollowUserACType = ReturnType<typeof followUserAC>
 
-export const followAC = (userId: string) => {
+export const followUserAC = (userId: string) => {
     return {
         type: FOLLOW_USER,
         userId
     } as const
 }
 
-type UnfollowACType = ReturnType<typeof unfollowAC>
+type UnfollowUserACType = ReturnType<typeof unfollowUserAC>
 
-export const unfollowAC = (userId: string) => {
+export const unfollowUserAC = (userId: string) => {
     return {
         type: UNFOLLOW_USER,
         userId
     } as const
 }
 
-type AddUserACType = ReturnType<typeof addUserAC>
+type addMoreUsersACType = ReturnType<typeof addMoreUsersAC>
 
-export const addUserAC = (userId: string, name: string, city: string, country: string) => {
+export const addMoreUsersAC = (users: Array<UsersType>) => {
     return {
-        type: ADD_USER,
-        userId,
-        name,
-        city,
-        country
+        type: ADD_MORE_USERS,
+        users
     } as const
 }
 
