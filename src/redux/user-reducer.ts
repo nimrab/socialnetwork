@@ -10,6 +10,9 @@ type InitialStateType = {
     users: Array<UsersType>
 }
 
+type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersACType
+
+
 const initialState: any = {
     users: [
         {
@@ -32,9 +35,7 @@ const initialState: any = {
 }
 
 
-type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersACType
-
-export const profileReducer = (state: InitialStateType = initialState, action: profileReducerType): InitialStateType => {
+export const userReducer = (state: InitialStateType = initialState, action: profileReducerType): InitialStateType => {
 
     switch (action.type) {
 

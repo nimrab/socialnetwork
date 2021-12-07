@@ -55,6 +55,10 @@ type UsersLocationType = {
     country: string
 }
 
+export type UsersPageType = {
+    users: Array<UsersType>
+}
+
 export type UsersType = {
     id: string
     followed: boolean
