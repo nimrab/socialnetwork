@@ -1,10 +1,29 @@
 import React from 'react';
 import css from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
+import {v1} from "uuid";
 
 
 export const Users = (props: UsersPropsType) => {
 
+    props.addMoreUsers([
+        {
+            id: v1(),
+            followed: true,
+            name: 'MyFriend1',
+            status: 'looking for a job',
+            location: {city: 'SPB', country: 'Russia'}
+        },
+        {
+            id: v1(),
+            followed: false,
+            name: 'MyFriend2',
+            status: 'do nothing club',
+            location: {city: 'SPB', country: 'Russia'}
+        },
+        {id: v1(), followed: true, name: 'MyFriend3', status: 'hey', location: {city: 'SPB', country: 'Russia'}},
+        {id: v1(), followed: false, name: 'MyFriend4', status: 'Oo', location: {city: 'SPB', country: 'Russia'}}
+    ])
 
     const clickHandler = (id: string, followed: boolean) => {
 

@@ -14,24 +14,7 @@ type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersAC
 
 
 const initialState: any = {
-    users: [
-        {
-            id: v1(),
-            followed: true,
-            name: 'MyFriend1',
-            status: 'looking for a job',
-            location: {city: 'SPB', country: 'Russia'}
-        },
-        {
-            id: v1(),
-            followed: false,
-            name: 'MyFriend2',
-            status: 'do nothing club',
-            location: {city: 'SPB', country: 'Russia'}
-        },
-        {id: v1(), followed: true, name: 'MyFriend3', status: 'hey', location: {city: 'SPB', country: 'Russia'}},
-        {id: v1(), followed: false, name: 'MyFriend4', status: 'Oo', location: {city: 'SPB', country: 'Russia'}}
-    ],
+    users: [],
 }
 
 
