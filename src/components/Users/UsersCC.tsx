@@ -4,31 +4,36 @@ import {UsersPropsType} from "./UsersContainer";
 import axios from 'axios'
 import userDefaultPhoto from '../../assets/userDefault.png'
 
-export const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers:     {
-        "API-KEY": "21183"
+
+export class UsersCC extends React.Component<any , any>{
+
+constructor(props:any) {
+    super(props);
+
+    const instance = axios.create({
+        withCredentials: true,
+        baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+        headers:     {
+            "API-KEY": "21183"
+        }
+    });
+
+    instance.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>{
+        props.addMoreUsers(response.data.items)
+    })
+
+
+}
+
+
+
+    clickHandler = (id: string, followed: boolean) => {
+
+        followed ? this.props.unfollowUser(id) : this.props.followUser(id)
+
     }
-});
-
-export const Users = (props: UsersPropsType) => {
-
-
-    if (props.usersPage.users.length === 0) {
-
-        instance.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>{
-            props.addMoreUsers(response.data.items)
-        })
-    }
-
-    const clickHandler = (id: string, followed: boolean) => {
-
-        followed ? props.unfollowUser(id) : props.followUser(id)
-
-    }
-
-    const usersDataToComp = props.usersPage.users.map(el => {
+    //@ts-ignore
+    usersDataToComp =  this.props.usersPage.users.map(el => {
         return (
 
             <section className={css.user_box} key={el.id}>
@@ -41,7 +46,7 @@ export const Users = (props: UsersPropsType) => {
                     />
                     <div
                         className={css.follow_btn}
-                        onClick={() => clickHandler(el.id, el.followed)}
+                        onClick={() => this.clickHandler(el.id, el.followed)}
                     >
                         {el.followed ? 'Unfollow' : 'Follow'}
                     </div>
@@ -68,9 +73,14 @@ export const Users = (props: UsersPropsType) => {
 
     })
 
+render() {
 
     return (
-      <>{usersDataToComp}</>
-    );
-};
+        <>{this.usersDataToComp}</>
+    )
+}
+
+
+
+}
 

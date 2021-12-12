@@ -50,10 +50,11 @@ export type FriendsType = {
     name: string
 }
 
-type UsersLocationType = {
-    city: string
-    country: string
+export type UserPhotoType = {
+    small: string
+    large: string
 }
+
 
 export type UsersPageType = {
     users: Array<UsersType>
@@ -64,7 +65,7 @@ export type UsersType = {
     followed: boolean
     name: string
     status: string
-    location: UsersLocationType
+    photos:UserPhotoType
 }
 
 
