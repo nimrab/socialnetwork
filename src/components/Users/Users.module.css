@@ -31,3 +31,13 @@
 .follow_btn:hover {
     cursor: pointer;
 }
+
+.page_number {
+    margin-left: 3px;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+.selected_page {
+    font-weight: 900;
+}

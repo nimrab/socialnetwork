@@ -8,6 +8,9 @@ const UNFOLLOW_USER = 'UNFOLLOW-USER'
 
 type InitialStateType = {
     users: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersACType
@@ -15,6 +18,9 @@ type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersAC
 
 const initialState: any = {
     users: [],
+    pageSize: 7,
+    totalUsersCount: 40,
+    currentPage: 1,
 }
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import css from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
 import axios from 'axios'
@@ -7,25 +7,45 @@ import userDefaultPhoto from '../../assets/userDefault.png'
 export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers:     {
+    headers: {
         "API-KEY": "21183"
     }
 });
 
 export const Users = (props: UsersPropsType) => {
 
+    useEffect(() => {
 
-    if (props.usersPage.users.length === 0) {
+        if (props.usersPage.users.length === 0) {
 
-        instance.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>{
-            props.addMoreUsers(response.data.items)
-        })
+            instance.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.addMoreUsers(response.data.items)
+            })
+        }
+
+    }, [])
+
+
+    const pagesCount = Math.ceil(props.usersPage.totalUsersCount / props.usersPage.pageSize)
+    let pagesArr = []
+
+    for (let i = 1; i <= pagesCount; i++) {
+        pagesArr.push(i)
     }
 
+    const pageToComp = pagesArr.map(el => {
+        let current = props.usersPage.currentPage === el
+        return (
+
+            <span className={`${css.page_number} ${current && css.selected_page}`}
+                  key={el}>
+                {el}
+            </span>
+        )
+    })
+
     const clickHandler = (id: string, followed: boolean) => {
-
         followed ? props.unfollowUser(id) : props.followUser(id)
-
     }
 
     const usersDataToComp = props.usersPage.users.map(el => {
@@ -70,7 +90,10 @@ export const Users = (props: UsersPropsType) => {
 
 
     return (
-      <>{usersDataToComp}</>
+        <>
+            {pageToComp}
+            {usersDataToComp}
+        </>
     );
 };
 

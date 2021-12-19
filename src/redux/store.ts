@@ -58,6 +58,9 @@ export type UserPhotoType = {
 
 export type UsersPageType = {
     users: Array<UsersType>
+    pageSize: 7
+    totalUsersCount: 0
+    currentPage:number
 }
 
 export type UsersType = {
