@@ -1,7 +1,13 @@
 import {connect} from "react-redux";
 import {UsersPageType, UsersType} from "../../redux/store";
 import {Dispatch} from "redux";
-import {addMoreUsersAC, followUserAC, unfollowUserAC} from "../../redux/user-reducer";
+import {
+    addMoreUsersAC,
+    changeUserPageNumberAC,
+    followUserAC,
+    setTotalUsersCountAC,
+    unfollowUserAC
+} from "../../redux/user-reducer";
 import {Users} from "./Users";
 
 
@@ -13,6 +19,8 @@ type mapDispatchToPropsType = {
     addMoreUsers: (users: Array<UsersType>) => void
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
+    selectPage: (page: number) => void
+    setTotalUsersCount: (count: number) => void
 }
 
 
@@ -30,6 +38,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         addMoreUsers: (users: Array<UsersType>) => dispatch(addMoreUsersAC(users)),
         followUser: (userId: string) => dispatch(followUserAC(userId)),
         unfollowUser: (userId: string) => dispatch(unfollowUserAC(userId)),
+        selectPage: (page: number) => dispatch(changeUserPageNumberAC(page)),
+        setTotalUsersCount: (count: number) => dispatch(setTotalUsersCountAC(count))
     }
 }
 

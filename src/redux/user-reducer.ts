@@ -5,6 +5,8 @@ import {UsersType} from "./store";
 const ADD_MORE_USERS = 'ADD-MORE-USERS'
 const FOLLOW_USER = 'FOLLOW-USER'
 const UNFOLLOW_USER = 'UNFOLLOW-USER'
+const CHANGE_USER_PAGE_NUMBER = 'CHANGE-USER-PAGE-NUMBER'
+const SET_USERS_COUNT = 'SET-USERS-COUNT'
 
 type InitialStateType = {
     users: Array<UsersType>
@@ -13,13 +15,18 @@ type InitialStateType = {
     currentPage: number
 }
 
-type profileReducerType = FollowUserACType | UnfollowUserACType | addMoreUsersACType
+type profileReducerType =
+    FollowUserACType |
+    UnfollowUserACType |
+    addMoreUsersACType |
+    changeUserPageNumberType |
+    setTotalUsersCountType
 
 
 const initialState: any = {
     users: [],
     pageSize: 7,
-    totalUsersCount: 40,
+    totalUsersCount: 0,
     currentPage: 1,
 }
 
@@ -29,15 +36,19 @@ export const userReducer = (state: InitialStateType = initialState, action: prof
     switch (action.type) {
 
         case ADD_MORE_USERS:
-
-            return {...state, users: [...state.users, ...action.users]}
-
+            return {...state, users: [...action.users]}
 
         case FOLLOW_USER:
             return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el)}
 
         case UNFOLLOW_USER:
             return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)}
+
+        case CHANGE_USER_PAGE_NUMBER:
+            return {...state, currentPage: action.page}
+
+        case SET_USERS_COUNT:
+            return {...state, totalUsersCount: action.count}
 
         default:
             return state
@@ -71,4 +82,24 @@ export const addMoreUsersAC = (users: Array<UsersType>) => {
         users
     } as const
 }
+
+type changeUserPageNumberType = ReturnType<typeof changeUserPageNumberAC>
+
+export const changeUserPageNumberAC = (page: number) => {
+    return {
+        type: CHANGE_USER_PAGE_NUMBER,
+        page
+    } as const
+}
+
+
+type setTotalUsersCountType = ReturnType<typeof setTotalUsersCountAC>
+
+export const setTotalUsersCountAC = (count: number) => {
+    return {
+        type: SET_USERS_COUNT,
+        count
+    } as const
+}
+
 

@@ -18,12 +18,22 @@ export const Users = (props: UsersPropsType) => {
 
         if (props.usersPage.users.length === 0) {
 
-            instance.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
                 props.addMoreUsers(response.data.items)
+                //!!!check & revise count
+                props.setTotalUsersCount(response.data.totalCount / 400)
             })
         }
 
-    }, [])
+    })
+
+const pageClickHandler = (page: number) => {
+    props.selectPage(page)
+    instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.usersPage.pageSize}`).then(response => {
+        props.addMoreUsers(response.data.items)
+    })
+
+}
 
 
     const pagesCount = Math.ceil(props.usersPage.totalUsersCount / props.usersPage.pageSize)
@@ -37,8 +47,11 @@ export const Users = (props: UsersPropsType) => {
         let current = props.usersPage.currentPage === el
         return (
 
-            <span className={`${css.page_number} ${current && css.selected_page}`}
-                  key={el}>
+            <span
+                key={el}
+                className={`${css.page_number} ${current && css.selected_page}`}
+                onClick={() => pageClickHandler(el)}
+                >
                 {el}
             </span>
         )
