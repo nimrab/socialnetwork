@@ -1,23 +1,23 @@
-import {ActionTypes, ProfilePageType} from "./store";
+import {ProfilePageType, UserProfileType} from "./store";
+import {addMessageActionCreator, updateMessageTextActionCreator} from "./dialog-reducer";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
-
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST,
-    } as const
-}
+const SET_USER_PROFILE_INFO = 'SET-USER-PROFILE-INFO'
 
 
-export const updateNewPostTextActionCreator = (newText: string) => {
-    return {
-        type: UPDATE_POST_TEXT,
-        newText: newText
-    } as const
-}
+export type ActionTypes =
+    (
+        ReturnType<typeof addPostActionCreator> |
+        ReturnType<typeof updateNewPostTextActionCreator> |
+        ReturnType<typeof addMessageActionCreator> |
+        ReturnType<typeof updateMessageTextActionCreator> |
+        ReturnType<typeof setUserProfileInfo>
+        )
+
 
 const initialState: ProfilePageType = {
+    profile: null,
     posts: [
         {mes: "hello bro", likes: 300},
         {mes: "hello bro1", likes: 330},
@@ -35,15 +35,38 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 mes: state.newPostText,
                 likes: 0
             }
-            // state.posts = [...state.posts, newPost]
-            // state.newPostText = ''
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
 
         case UPDATE_POST_TEXT:
-            //state.newPostText = action.newText
             return {...state, newPostText: action.newText}
+
+        case SET_USER_PROFILE_INFO:
+            return {...state, profile: action.userInfoObj}
 
         default:
             return state
     }
+}
+
+
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST,
+    } as const
+}
+
+
+export const updateNewPostTextActionCreator = (newText: string) => {
+    return {
+        type: UPDATE_POST_TEXT,
+        newText: newText
+    } as const
+}
+
+
+export const setUserProfileInfo = (userInfoObj: UserProfileType) => {
+    return {
+        type: SET_USER_PROFILE_INFO,
+        userInfoObj
+    } as const
 }

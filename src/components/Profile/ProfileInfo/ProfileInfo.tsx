@@ -1,19 +1,30 @@
 import React from "react";
 import css from "../ProfileInfo/ProfileInfo.module.css";
+import {Preloader} from "../../common/Preloader/Preloader";
 
 
-export const ProfileInfo = (props:any) => {
 
-    return (
-        <section className={css.photo_section}>
-            <img src="https://www.bigstockphoto.com/images/homepage/collections2020/module-4.jpg"
-                 className={css.img}/>
-            <div className={css.photo_desc}>
-                <h5 className={css.photo_name}>Mister bearded man</h5>
-                Hello buddy!
-            </div>
+export const ProfileInfo = (props: any) => {
+    console.log('profileInfo' + props.profile)
 
-        </section>
-    )
+        return (
+            <Preloader/>
+        )
+        /* } else {
+
+             return (
+                 <section className={css.photo_section}>
+
+                   {/!*  <img src={props.profile?.photos.large}
+                          alt={'user photo'}
+                          className={css.img}/>
+                     <div className={css.photo_desc}>
+                         <h5 className={css.photo_name}>{props.profile?.fullName}</h5>
+                         <span>{props.profile?.aboutMe}</span>
+                     </div>*!/}
+
+                 </section>
+             )
+         }*/
 
 }

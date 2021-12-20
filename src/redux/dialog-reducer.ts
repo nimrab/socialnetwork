@@ -1,5 +1,6 @@
-import {ActionTypes, DialogsPageType} from "./store";
+import {DialogsPageType} from "./store";
 import {v1} from "uuid";
+import {ActionTypes} from "./profile-reducer";
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'

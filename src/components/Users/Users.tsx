@@ -2,13 +2,14 @@ import React from 'react';
 import css from './Users.module.css'
 import userDefaultPhoto from '../../assets/images/userDefault.png'
 import {UsersPageType} from "../../redux/store";
+import { NavLink } from 'react-router-dom';
 
 type UserType = {
     pageClickHandler: (page: number) => void
     pagesArr: Array<number>
     usersPage: UsersPageType
-    followUser: (id:string) => void
-    unfollowUser: (id:string) => void
+    followUser: (id: string) => void
+    unfollowUser: (id: string) => void
 }
 
 
@@ -23,8 +24,7 @@ export const Users = (props: UserType) => {
                 className={`${css.page_number} ${current && css.selected_page}`}
                 onClick={() => props.pageClickHandler(el)}
             >
-                {el}
-            </span>
+             </span>
         )
     })
 
@@ -38,11 +38,13 @@ export const Users = (props: UserType) => {
             <section className={css.user_box} key={el.id}>
 
                 <div>
-                    <img
-                        src={el.photos.small !== null ? el.photos.small : userDefaultPhoto}
-                        alt='user photo'
-                        className={css.img}
-                    />
+                    <NavLink to={'profile/' + el.id}>
+                        <img
+                            src={el.photos.small !== null ? el.photos.small : userDefaultPhoto}
+                            alt='user photo'
+                            className={css.img}
+                        />
+                    </NavLink>
                     <div
                         className={css.follow_btn}
                         onClick={() => clickHandler(el.id, el.followed)}
