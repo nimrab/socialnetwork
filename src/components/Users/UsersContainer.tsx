@@ -8,7 +8,7 @@ import {
     setTotalUsersCountAC,
     unfollowUserAC
 } from "../../redux/user-reducer";
-import {Users} from "./Users";
+import {UsersAPIComp} from "./UsersAPIComp";
 
 
 type mapStateToPropsType = {
@@ -44,4 +44,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 }
 
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComp)

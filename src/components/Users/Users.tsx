@@ -1,57 +1,28 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import css from './Users.module.css'
-import {UsersPropsType} from "./UsersContainer";
-import axios from 'axios'
 import userDefaultPhoto from '../../assets/userDefault.png'
+import {UsersPageType} from "../../redux/store";
 
-export const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {
-        "API-KEY": "21183"
-    }
-});
-
-export const Users = (props: UsersPropsType) => {
-
-    useEffect(() => {
-
-        if (props.usersPage.users.length === 0) {
-
-            instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
-                props.addMoreUsers(response.data.items)
-                //!!!check & revise count
-                props.setTotalUsersCount(response.data.totalCount / 400)
-            })
-        }
-
-    })
-
-const pageClickHandler = (page: number) => {
-    props.selectPage(page)
-    instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.usersPage.pageSize}`).then(response => {
-        props.addMoreUsers(response.data.items)
-    })
-
+type UserType = {
+    pageClickHandler: (page: number) => void
+    pagesArr: Array<number>
+    usersPage: UsersPageType
+    followUser: (id:string) => void
+    unfollowUser: (id:string) => void
 }
 
 
-    const pagesCount = Math.ceil(props.usersPage.totalUsersCount / props.usersPage.pageSize)
-    let pagesArr = []
+export const Users = (props: UserType) => {
 
-    for (let i = 1; i <= pagesCount; i++) {
-        pagesArr.push(i)
-    }
 
-    const pageToComp = pagesArr.map(el => {
+    const pageToComp = props.pagesArr.map(el => {
         let current = props.usersPage.currentPage === el
         return (
-
             <span
                 key={el}
                 className={`${css.page_number} ${current && css.selected_page}`}
-                onClick={() => pageClickHandler(el)}
-                >
+                onClick={() => props.pageClickHandler(el)}
+            >
                 {el}
             </span>
         )
