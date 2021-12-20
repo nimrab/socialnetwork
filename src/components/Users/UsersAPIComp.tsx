@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Users} from "./Users";
 import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
+import {Preloader} from "../common/Preloader/Preloader";
 
 
 export const instance = axios.create({
@@ -19,19 +20,24 @@ export const UsersAPIComp = (props: UsersPropsType) => {
 
         if (props.usersPage.users.length === 0) {
 
+            props.isFetching(true)
+
             instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
+                props.isFetching(false)
                 props.addMoreUsers(response.data.items)
                 //!!!check & revise count
                 props.setTotalUsersCount(response.data.totalCount / 400)
             })
         }
 
-    })
+    },[])
 
 
     const pageClickHandler = (page: number) => {
+        props.isFetching(true)
         props.selectPage(page)
         instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.usersPage.pageSize}`).then(response => {
+            props.isFetching(false)
             props.addMoreUsers(response.data.items)
         })
     }
@@ -46,6 +52,7 @@ export const UsersAPIComp = (props: UsersPropsType) => {
 
     return (
         <>
+            {props.usersPage.isFetching ? <Preloader/> : null}
             <Users
                 pageClickHandler={pageClickHandler}
                 pagesArr={pagesArr}

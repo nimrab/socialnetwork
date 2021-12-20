@@ -5,7 +5,7 @@ import {
     addMoreUsersAC,
     changeUserPageNumberAC,
     followUserAC,
-    setTotalUsersCountAC,
+    setTotalUsersCountAC, toggleIsFetchingAC,
     unfollowUserAC
 } from "../../redux/user-reducer";
 import {UsersAPIComp} from "./UsersAPIComp";
@@ -21,6 +21,7 @@ type mapDispatchToPropsType = {
     unfollowUser: (userId: string) => void
     selectPage: (page: number) => void
     setTotalUsersCount: (count: number) => void
+    isFetching: (value: boolean) => void
 }
 
 
@@ -39,7 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         followUser: (userId: string) => dispatch(followUserAC(userId)),
         unfollowUser: (userId: string) => dispatch(unfollowUserAC(userId)),
         selectPage: (page: number) => dispatch(changeUserPageNumberAC(page)),
-        setTotalUsersCount: (count: number) => dispatch(setTotalUsersCountAC(count))
+        setTotalUsersCount: (count: number) => dispatch(setTotalUsersCountAC(count)),
+        isFetching: (value: boolean) => dispatch(toggleIsFetchingAC(value))
     }
 }
 

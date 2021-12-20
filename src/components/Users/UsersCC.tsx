@@ -2,7 +2,7 @@ import React from 'react';
 import css from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
 import axios from 'axios'
-import userDefaultPhoto from '../../assets/userDefault.png'
+import userDefaultPhoto from '../../assets/images/userDefault.png'
 
 
 export class UsersCC extends React.Component<any , any>{

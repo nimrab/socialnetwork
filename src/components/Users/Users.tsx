@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './Users.module.css'
-import userDefaultPhoto from '../../assets/userDefault.png'
+import userDefaultPhoto from '../../assets/images/userDefault.png'
 import {UsersPageType} from "../../redux/store";
 
 type UserType = {

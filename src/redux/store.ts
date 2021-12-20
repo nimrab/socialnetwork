@@ -61,6 +61,7 @@ export type UsersPageType = {
     pageSize: 7
     totalUsersCount: 0
     currentPage:number
+    isFetching: boolean
 }
 
 export type UsersType = {
