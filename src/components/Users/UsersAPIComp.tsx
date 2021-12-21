@@ -22,7 +22,7 @@ export const UsersAPIComp = (props: UsersPropsType) => {
 
             props.isFetching(true)
 
-            instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
+            instance.get(`users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
                 props.isFetching(false)
                 props.addMoreUsers(response.data.items)
                 //!!!check & revise count

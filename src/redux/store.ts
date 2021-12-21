@@ -27,7 +27,7 @@ export type DialogsPageType = {
 }
 
 export type ProfilePageType = {
-    profile: UserProfileType | null,
+    profile: UserProfileType | null
     posts: Array<MesPropType>
     newPostText: string
 }
@@ -44,14 +44,14 @@ type UserProfileContactType = {
 }
 
 type UserProfilePhotosType = {
-    small: string
-    large: string
+    small: string | null
+    large: string | null
 }
 export type UserProfileType = {
     aboutMe: string
     contacts: UserProfileContactType
     lookingForAJob: boolean
-    lookingForAJobDescription: string
+    lookingForAJobDescription: string | null
     fullName: string
     userId: number
     photos: UserProfilePhotosType
