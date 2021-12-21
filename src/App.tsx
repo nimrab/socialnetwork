@@ -2,15 +2,13 @@ import React from 'react';
 import './App.css';
 import {Header} from './components/Header/Header';
 import {Navbar} from './components/Navbar/Navbar';
-import {Profile} from './components/Profile/Profile';
 import {BrowserRouter, Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
+import {WithRouterProfile} from "./components/Profile/WithRouterProfile";
 
-export type AppPropsType = any
 
-
-export const App = (props: AppPropsType) => {
+export const App = () => {
 
 
     return (
@@ -20,7 +18,7 @@ export const App = (props: AppPropsType) => {
                 <Navbar/>
                 <div className="content">
 
-                    <Route path='/profile' render={() => <Profile/>}/>
+                    <Route path='/profile:userId' render={() => <WithRouterProfile/>}/>
 
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
 

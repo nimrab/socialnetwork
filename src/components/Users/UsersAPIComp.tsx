@@ -48,7 +48,7 @@ export const UsersAPIComp = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pagesArr.push(i)
     }
-
+    console.log(pagesArr)
 
     return (
         <>

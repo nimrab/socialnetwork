@@ -7,15 +7,22 @@ import {UserProfileType} from "../../redux/store";
 import {AppRootStateType} from "../../redux/redux-store";
 import {instance} from "../Users/UsersAPIComp";
 import {setUserProfileInfo} from "../../redux/profile-reducer";
+import {RouteComponentProps} from "react-router-dom";
 
+type PathParamsType = {
+    userId:string
+}
 
-export const Profile = () => {
+type ProfilePropsType = RouteComponentProps<PathParamsType>
+
+export const Profile = (props: ProfilePropsType) => {
 
     const dispatch = useDispatch()
     const profileState = useSelector<AppRootStateType, UserProfileType | null>(state => state.profilePage.profile)
 
     useEffect(() => {
-        instance.get(`profile/2`).then(response => {
+        const userId = props.match.params.userId
+        instance.get(`profile/` + userId).then(response => {
              dispatch(setUserProfileInfo(response.data))
         })
     }, [])
