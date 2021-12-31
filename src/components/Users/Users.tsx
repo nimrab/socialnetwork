@@ -24,6 +24,7 @@ export const Users = (props: UserType) => {
                 className={`${css.page_number} ${current && css.selected_page}`}
                 onClick={() => props.pageClickHandler(el)}
             >
+                {el}
              </span>
         )
     })
@@ -62,8 +63,8 @@ export const Users = (props: UserType) => {
 
 
                     <div className={css.user_location}>
-                        <h5>Country: {'el.location.country'}</h5>
-                        <h6>City: {'el.location.city'}</h6>
+                        <h5>Country: {'location.country(hard string)'}</h5>
+                        <h6>City: {'location.city(hard string)'}</h6>
                     </div>
 
                 </div>

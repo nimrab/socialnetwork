@@ -29,7 +29,8 @@ export type DialogsPageType = {
 export type ProfilePageType = {
     profile: UserProfileType | null
     posts: Array<MesPropType>
-    newPostText: string
+    newPostText: string,
+    isFetching: boolean
 }
 
 type UserProfileContactType = {
@@ -117,7 +118,8 @@ export const store: StoreType = {
                 {mes: "hello bro1", likes: 330},
                 {mes: "hello bro2", likes: 110}
             ],
-            newPostText: ''
+            newPostText: '',
+            isFetching: true
         },
         dialogsPage: {
             dialogs: [

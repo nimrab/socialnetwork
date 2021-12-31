@@ -1,9 +1,12 @@
 import {ProfilePageType, UserProfileType} from "./store";
 import {addMessageActionCreator, updateMessageTextActionCreator} from "./dialog-reducer";
+import {toggleIsFetchingAC} from "./user-reducer";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
 const SET_USER_PROFILE_INFO = 'SET-USER-PROFILE-INFO'
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+
 
 
 export type ActionTypes =
@@ -12,7 +15,8 @@ export type ActionTypes =
         ReturnType<typeof updateNewPostTextActionCreator> |
         ReturnType<typeof addMessageActionCreator> |
         ReturnType<typeof updateMessageTextActionCreator> |
-        ReturnType<typeof setUserProfileInfo>
+        ReturnType<typeof setUserProfileInfo> |
+        ReturnType<typeof toggleIsFetchingAC>
         )
 
 
@@ -23,7 +27,8 @@ const initialState: ProfilePageType = {
         {mes: "hello bro1", likes: 330},
         {mes: "hello bro2", likes: 110}
     ],
-    newPostText: ''
+    newPostText: '',
+    isFetching: true
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes): ProfilePageType => {
@@ -42,6 +47,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 
         case SET_USER_PROFILE_INFO:
             return {...state, profile: action.userInfoObj}
+
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.value}
 
         default:
             return state

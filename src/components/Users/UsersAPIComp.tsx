@@ -23,10 +23,10 @@ export const UsersAPIComp = (props: UsersPropsType) => {
             props.isFetching(true)
 
             instance.get(`users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
-                props.isFetching(false)
                 props.addMoreUsers(response.data.items)
                 //!!!check & revise count
                 props.setTotalUsersCount(response.data.totalCount / 400)
+                props.isFetching(false)
             })
         }
 
@@ -37,8 +37,8 @@ export const UsersAPIComp = (props: UsersPropsType) => {
         props.isFetching(true)
         props.selectPage(page)
         instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.usersPage.pageSize}`).then(response => {
-            props.isFetching(false)
             props.addMoreUsers(response.data.items)
+            props.isFetching(false)
         })
     }
 
@@ -48,7 +48,6 @@ export const UsersAPIComp = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pagesArr.push(i)
     }
-    console.log(pagesArr)
 
     return (
         <>
