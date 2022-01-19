@@ -11,7 +11,6 @@ import {Profile} from "./components/Profile/Profile";
 
 export const App = () => {
 
-
     return (
         <BrowserRouter>
             <div className="main_section">
@@ -19,11 +18,8 @@ export const App = () => {
                 <Navbar/>
                 <div className="content">
 
-                    {/*<Route path='/profile:userId' render={() => <WithRouterProfile/>}/>*/}
-                    <Route path='/profile' render={() => <Profile/>}/>
-
+                    <Route path='/profile/:userId' render={() => <WithRouterProfile/>}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-
                     <Route path='/users' render={() => <UsersContainer/>}/>
 
                 </div>

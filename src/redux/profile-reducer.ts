@@ -8,7 +8,6 @@ const SET_USER_PROFILE_INFO = 'SET-USER-PROFILE-INFO'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 
 
-
 export type ActionTypes =
     (
         ReturnType<typeof addPostActionCreator> |
@@ -21,7 +20,27 @@ export type ActionTypes =
 
 
 const initialState: ProfilePageType = {
-    profile: null,
+    profile: {
+        aboutMe: null,
+        userId: null,
+        lookingForAJob: null,
+        lookingForAJobDescription: null,
+        fullName: null,
+        contacts: {
+            github: null,
+            vk: null,
+            facebook: null,
+            instagram: null,
+            twitter: null,
+            website: null,
+            youtube: null,
+            mainLink: null,
+        },
+        photos: {
+            small: null,
+            large: null,
+        }
+    },
     posts: [
         {mes: "hello bro", likes: 300},
         {mes: "hello bro1", likes: 330},

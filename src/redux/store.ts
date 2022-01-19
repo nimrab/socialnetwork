@@ -27,20 +27,20 @@ export type DialogsPageType = {
 }
 
 export type ProfilePageType = {
-    profile: UserProfileType | null
+    profile: UserProfileType
     posts: Array<MesPropType>
     newPostText: string,
     isFetching: boolean
 }
 
 type UserProfileContactType = {
-    facebook: string | null
-    website: string | null
-    vk: string | null
-    twitter: string | null
-    instagram: string | null
-    youtube: string | null
     github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
     mainLink: string | null
 }
 
@@ -49,12 +49,12 @@ type UserProfilePhotosType = {
     large: string | null
 }
 export type UserProfileType = {
-    aboutMe: string
-    contacts: UserProfileContactType
-    lookingForAJob: boolean
+    userId: number | null
+    aboutMe: string | null
+    lookingForAJob: boolean | null
     lookingForAJobDescription: string | null
-    fullName: string
-    userId: number
+    fullName: string | null
+    contacts: UserProfileContactType
     photos: UserProfilePhotosType
 }
 
@@ -112,7 +112,27 @@ export type ReduxStateType = ReturnType<typeof rootReducer>
 export const store: StoreType = {
     _state: {
         profilePage: {
-            profile: null,
+            profile: {
+                aboutMe: null,
+                userId: null,
+                lookingForAJob: null,
+                lookingForAJobDescription: null,
+                fullName: null,
+                contacts: {
+                    github: null,
+                    vk: null,
+                    facebook: null,
+                    instagram: null,
+                    twitter: null,
+                    website: null,
+                    youtube: null,
+                    mainLink: null,
+                },
+                photos: {
+                    small: null,
+                    large: null,
+                }
+            },
             posts: [
                 {mes: "hello bro", likes: 300},
                 {mes: "hello bro1", likes: 330},

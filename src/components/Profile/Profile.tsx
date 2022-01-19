@@ -3,7 +3,7 @@ import css from './Profile.module.css';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {ProfilePageType, UserProfileType} from "../../redux/store";
+import {ProfilePageType} from "../../redux/store";
 import {AppRootStateType} from "../../redux/redux-store";
 import {instance} from "../Users/UsersAPIComp";
 import {setUserProfileInfo} from "../../redux/profile-reducer";
@@ -17,14 +17,12 @@ type PathParamsType = {
 
 type ProfilePropsType = RouteComponentProps<PathParamsType>
 
-// export const Profile = (props: ProfilePropsType) => {
-export const Profile = () => {
-    console.log('working!')
+export const Profile = (props: ProfilePropsType) => {
+ console.log('working!')
 
     const dispatch = useDispatch()
-    // const profileState = useSelector<AppRootStateType, UserProfileType | null>(state => state.profilePage.profile)
-    // const profileIsFetching = useSelector<AppRootStateType, boolean>(state => state.profilePage.isFetching)
-
+    //const profileState = useSelector<AppRootStateType, UserProfileType | null>(state => state.profilePage.profile)
+    //const profileIsFetching = useSelector<AppRootStateType, boolean>(state => state.profilePage.isFetching)
     const profileState = useSelector<AppRootStateType, ProfilePageType>(state => state.profilePage)
 
     console.log(profileState)
@@ -32,9 +30,10 @@ export const Profile = () => {
     // console.log(props.match.params.userId)
     //
         useEffect(() => {
-            const userId = 3
-            // const userId = props.match.params.userId
-            instance.get(`profile/` + userId).then(response => {
+            console.log('use effect')
+            //const userId = 3
+            const userId = props.match.params.userId
+            instance.get(`profile/${userId}`).then(response => {
                 dispatch(setUserProfileInfo(response.data))
                 dispatch(toggleIsFetchingAC(false))
             })
@@ -42,10 +41,17 @@ export const Profile = () => {
 
     return (
         <>
-            {profileState.isFetching ? <Preloader/> : null}
-            <div>
+            {profileState.isFetching
+                ? <Preloader/>
+                :
+                 <div className={css.profile}>
+                     <ProfileInfo profile={profileState.profile}/>
+                     <MyPostsContainer/>
+                 </div>
+                }
+            {/*<div>
                 <ProfileInfo profile={profileState.profile}/>
-            </div>
+            </div>*/}
 
         </>
         // <div className={css.profile}>
