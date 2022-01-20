@@ -1,7 +1,7 @@
 import React from "react";
 import css from "../ProfileInfo/ProfileInfo.module.css";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {ProfilePageType, UserProfileType} from "../../../redux/store";
+import {UserProfileType} from "../../../redux/store";
 import userDefaultPhoto from "../../../assets/images/userDefault.png";
 
 

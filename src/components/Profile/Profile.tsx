@@ -18,7 +18,6 @@ type PathParamsType = {
 type ProfilePropsType = RouteComponentProps<PathParamsType>
 
 export const Profile = (props: ProfilePropsType) => {
- console.log('working!')
 
     const dispatch = useDispatch()
     //const profileState = useSelector<AppRootStateType, UserProfileType | null>(state => state.profilePage.profile)
@@ -27,12 +26,11 @@ export const Profile = (props: ProfilePropsType) => {
 
     console.log(profileState)
 
-    // console.log(props.match.params.userId)
+    console.log(props)
     //
         useEffect(() => {
-            console.log('use effect')
             //const userId = 3
-            const userId = props.match.params.userId
+            const userId = props.match.params.userId ?? 2
             instance.get(`profile/${userId}`).then(response => {
                 dispatch(setUserProfileInfo(response.data))
                 dispatch(toggleIsFetchingAC(false))

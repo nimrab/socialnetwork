@@ -8,9 +8,9 @@ import {Preloader} from "../common/Preloader/Preloader";
 export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {
-        "API-KEY": "21183"
-    }
+ /*   headers: {
+        "API-KEY": "7be99c63-5a64-429e-83a0-e1cc010cb04c"
+    }*/
 });
 
 

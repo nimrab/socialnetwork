@@ -2,6 +2,31 @@
     grid-area: header;
     outline: 1px solid black;
     background-color: lightgray;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding-right: 100px;
 }
 
+.login_box {
+    width: 70px;
+    height: 50px;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-weight: 700;
+    color: black;
+}
+
+.login_box:hover {
+    cursor: pointer;
+}
+
+.login_box:active {
+    box-shadow: inset 2px 2px 2px #333333;
+}
