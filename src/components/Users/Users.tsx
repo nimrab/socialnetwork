@@ -2,7 +2,8 @@ import React from 'react';
 import css from './Users.module.css'
 import userDefaultPhoto from '../../assets/images/userDefault.png'
 import {UsersPageType} from "../../redux/store";
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import {instance} from "./UsersAPIComp";
 
 type UserType = {
     pageClickHandler: (page: number) => void
@@ -10,6 +11,7 @@ type UserType = {
     usersPage: UsersPageType
     followUser: (id: string) => void
     unfollowUser: (id: string) => void
+    isFetching: (value: boolean) => void
 }
 
 
@@ -29,10 +31,29 @@ export const Users = (props: UserType) => {
         )
     })
 
-    const clickHandler = (id: string, followed: boolean) => {
-        followed ? props.unfollowUser(id) : props.followUser(id)
-    }
+    const followBtnHandler = (id: string, followed: boolean) => {
+        if (followed) {
+            props.isFetching(true)
+            instance.delete(`/follow/${id}`)
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        props.unfollowUser(id)
+                    }
+                    props.isFetching(false)
+                })
 
+        }
+        if (!followed) {
+            props.isFetching(true)
+            instance.post(`/follow/${id}`)
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        props.followUser(id)
+                    }
+                    props.isFetching(false)
+                })
+        }
+    }
     const usersDataToComp = props.usersPage.users.map(el => {
         return (
 
@@ -48,7 +69,7 @@ export const Users = (props: UserType) => {
                     </NavLink>
                     <div
                         className={css.follow_btn}
-                        onClick={() => clickHandler(el.id, el.followed)}
+                        onClick={() => followBtnHandler(el.id, el.followed)}
                     >
                         {el.followed ? 'Unfollow' : 'Follow'}
                     </div>

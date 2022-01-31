@@ -8,10 +8,10 @@ import {Preloader} from "../common/Preloader/Preloader";
 export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
- /*   headers: {
-        "API-KEY": "7be99c63-5a64-429e-83a0-e1cc010cb04c"
-    }*/
-});
+    headers: {
+        'API-KEY': '7be99c63-5a64-429e-83a0-e1cc010cb04c'
+    }
+})
 
 
 export const UsersAPIComp = (props: UsersPropsType) => {
@@ -24,12 +24,11 @@ export const UsersAPIComp = (props: UsersPropsType) => {
 
             instance.get(`users?page=${props.usersPage.currentPage}&count=${props.usersPage.pageSize}`).then(response => {
                 props.addMoreUsers(response.data.items)
-                //!!!check & revise count
+                //!!!check & revise pages count
                 props.setTotalUsersCount(response.data.totalCount / 400)
                 props.isFetching(false)
             })
         }
-
     },[])
 
 
@@ -51,15 +50,16 @@ export const UsersAPIComp = (props: UsersPropsType) => {
 
     return (
         <>
-            {props.usersPage.isFetching ? <Preloader/> : null}
-            <Users
-                pageClickHandler={pageClickHandler}
-                pagesArr={pagesArr}
-                followUser={props.followUser}
-                unfollowUser={props.unfollowUser}
-                usersPage={props.usersPage}
-            />
-
+            {props.usersPage.isFetching ? <Preloader/> :
+                <Users
+                    pageClickHandler={pageClickHandler}
+                    pagesArr={pagesArr}
+                    followUser={props.followUser}
+                    unfollowUser={props.unfollowUser}
+                    usersPage={props.usersPage}
+                    isFetching={props.isFetching}
+                />
+            }
         </>
     );
 };
