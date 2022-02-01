@@ -5,7 +5,7 @@ import {UserProfileType} from "../../../redux/store";
 import userDefaultPhoto from "../../../assets/images/userDefault.png";
 
 
-type ProfileInfoPropsType = {
+export type ProfileInfoPropsType = {
     profile: UserProfileType
 }
 

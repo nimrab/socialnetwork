@@ -5,14 +5,14 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfilePageType} from "../../redux/store";
 import {AppRootStateType} from "../../redux/redux-store";
-import {instance} from "../Users/UsersAPIComp";
 import {setUserProfileInfo} from "../../redux/profile-reducer";
 import {RouteComponentProps} from "react-router-dom";
 import {toggleIsFetchingAC} from "../../redux/user-reducer";
 import {Preloader} from "../common/Preloader/Preloader";
+import {getUserProfile} from "../../API/API";
 
 type PathParamsType = {
-    userId:string
+    userId: string
 }
 
 type ProfilePropsType = RouteComponentProps<PathParamsType>
@@ -20,43 +20,34 @@ type ProfilePropsType = RouteComponentProps<PathParamsType>
 export const Profile = (props: ProfilePropsType) => {
 
     const dispatch = useDispatch()
-    //const profileState = useSelector<AppRootStateType, UserProfileType | null>(state => state.profilePage.profile)
-    //const profileIsFetching = useSelector<AppRootStateType, boolean>(state => state.profilePage.isFetching)
     const profileState = useSelector<AppRootStateType, ProfilePageType>(state => state.profilePage)
 
-    console.log(profileState)
 
-    console.log(props)
-    //
-        useEffect(() => {
-            //const userId = 3
-            const userId = props.match.params.userId ?? 2
-            instance.get(`profile/${userId}`).then(response => {
+    useEffect(() => {
+        //check for hardcode number 2..
+
+            const userId = +props.match.params.userId ?? 2
+            getUserProfile(userId).then(response => {
+                console.log(response.data)
                 dispatch(setUserProfileInfo(response.data))
                 dispatch(toggleIsFetchingAC(false))
             })
-        }, [])
+    }, [])
+
 
     return (
         <>
             {profileState.isFetching
                 ? <Preloader/>
                 :
-                 <div className={css.profile}>
-                     <ProfileInfo profile={profileState.profile}/>
-                     <MyPostsContainer/>
-                 </div>
-                }
-            {/*<div>
-                <ProfileInfo profile={profileState.profile}/>
-            </div>*/}
+                <div className={css.profile}>
+                    <ProfileInfo profile={profileState.profile}/>
+                    <MyPostsContainer/>
+                </div>
+            }
+
 
         </>
-        // <div className={css.profile}>
-        //     WORKING
-        //     {/*<ProfileInfo profile={profileState}/>*/}
-        //     {/*<MyPostsContainer/>*/}
-        // </div>
     )
 }
 

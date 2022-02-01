@@ -97,3 +97,4 @@ export const setUserProfileInfo = (userInfoObj: UserProfileType) => {
         userInfoObj
     } as const
 }
+

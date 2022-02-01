@@ -3,14 +3,14 @@ import css from './Users.module.css'
 import userDefaultPhoto from '../../assets/images/userDefault.png'
 import {UsersPageType} from "../../redux/store";
 import {NavLink} from 'react-router-dom';
-import {instance} from "./UsersAPIComp";
+import {followUser, unFollowUser} from "../../API/API";
 
 type UserType = {
     pageClickHandler: (page: number) => void
     pagesArr: Array<number>
     usersPage: UsersPageType
-    followUser: (id: string) => void
-    unfollowUser: (id: string) => void
+    followUser: (id: number) => void
+    unfollowUser: (id: number) => void
     isFetching: (value: boolean) => void
 }
 
@@ -31,10 +31,10 @@ export const Users = (props: UserType) => {
         )
     })
 
-    const followBtnHandler = (id: string, followed: boolean) => {
+    const followBtnHandler = (id: number, followed: boolean) => {
         if (followed) {
             props.isFetching(true)
-            instance.delete(`/follow/${id}`)
+            unFollowUser(id)
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         props.unfollowUser(id)
@@ -45,7 +45,7 @@ export const Users = (props: UserType) => {
         }
         if (!followed) {
             props.isFetching(true)
-            instance.post(`/follow/${id}`)
+            followUser(id)
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         props.followUser(id)

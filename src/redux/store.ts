@@ -83,7 +83,7 @@ export type UsersPageType = {
 }
 
 export type UsersType = {
-    id: string
+    id: number
     followed: boolean
     name: string
     status: string

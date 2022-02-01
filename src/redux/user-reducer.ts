@@ -64,7 +64,7 @@ export const userReducer = (state: InitialStateType = initialState, action: prof
 
 type FollowUserACType = ReturnType<typeof followUserAC>
 
-export const followUserAC = (userId: string) => {
+export const followUserAC = (userId: number) => {
     return {
         type: FOLLOW_USER,
         userId
@@ -73,7 +73,7 @@ export const followUserAC = (userId: string) => {
 
 type UnfollowUserACType = ReturnType<typeof unfollowUserAC>
 
-export const unfollowUserAC = (userId: string) => {
+export const unfollowUserAC = (userId: number) => {
     return {
         type: UNFOLLOW_USER,
         userId
