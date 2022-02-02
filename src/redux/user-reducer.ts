@@ -1,4 +1,6 @@
 import {UsersType} from "./store";
+import {followUser, getUsers, unFollowUser} from "../API/API";
+import {Dispatch} from 'redux'
 
 
 const ADD_MORE_USERS = 'ADD-MORE-USERS'
@@ -69,8 +71,8 @@ export const userReducer = (state: InitialStateType = initialState, action: prof
 
         case TOGGLE_FOLLOW_REQUEST:
             return state.isFollowFetching
-            ? {...state, followRequestInProcess: [...state.followRequestInProcess, action.userId]}
-            : {...state, followRequestInProcess: state.followRequestInProcess.filter(el => el !== action.userId)}
+                ? {...state, followRequestInProcess: [...state.followRequestInProcess, action.userId]}
+                : {...state, followRequestInProcess: state.followRequestInProcess.filter(el => el !== action.userId)}
 
         default:
             return state
@@ -144,7 +146,6 @@ export const toggleIsFollowFetchingAC = (value: boolean) => {
 }
 
 
-
 type toggleFollowRequestInProcessType = ReturnType<typeof toggleFollowRequestInProcessAC>
 
 export const toggleFollowRequestInProcessAC = (userId: number) => {
@@ -155,5 +156,66 @@ export const toggleFollowRequestInProcessAC = (userId: number) => {
 }
 
 
+//...................................................................
+//Thunk Creators
+
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetchingAC(true))
+
+        getUsers(currentPage, pageSize).then(response => {
+            dispatch(addMoreUsersAC(response.data.items))
+            //!!!check & revise pages count hardcode
+            dispatch(setTotalUsersCountAC(response.data.totalCount / 400))
+
+            dispatch(toggleIsFetchingAC(false))
+        })
+    }
+}
 
 
+export const userPagesTC = (page: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetchingAC(true))
+        dispatch(changeUserPageNumberAC(page))
+
+        getUsers(page, pageSize).then(response => {
+            dispatch(addMoreUsersAC(response.data.items))
+            dispatch(toggleIsFetchingAC(false))
+        })
+
+    }
+}
+
+
+export const followUserTC = (userId:number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFollowFetchingAC(true))
+        dispatch(toggleFollowRequestInProcessAC(userId))
+
+        followUser(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followUserAC(userId))
+                }
+                dispatch(toggleIsFollowFetchingAC(false))
+                dispatch(toggleFollowRequestInProcessAC(userId))
+            })
+    }
+}
+
+export const unFollowUserTC = (userId:number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFollowFetchingAC(true))
+        dispatch(toggleFollowRequestInProcessAC(userId))
+
+        unFollowUser(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollowUserAC(userId))
+                }
+                dispatch(toggleIsFollowFetchingAC(false))
+                dispatch(toggleFollowRequestInProcessAC(userId))
+            })
+    }
+}

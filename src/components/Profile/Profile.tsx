@@ -5,11 +5,9 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfilePageType} from "../../redux/store";
 import {AppRootStateType} from "../../redux/redux-store";
-import {setUserProfileInfo} from "../../redux/profile-reducer";
+import {setProfileTC} from "../../redux/profile-reducer";
 import {RouteComponentProps} from "react-router-dom";
-import {toggleIsFetchingAC} from "../../redux/user-reducer";
 import {Preloader} from "../common/Preloader/Preloader";
-import {getUserProfile} from "../../API/API";
 
 type PathParamsType = {
     userId: string
@@ -26,12 +24,11 @@ export const Profile = (props: ProfilePropsType) => {
     useEffect(() => {
         //check for hardcode number 2..
 
-            const userId = +props.match.params.userId ?? 2
-            getUserProfile(userId).then(response => {
-                console.log(response.data)
-                dispatch(setUserProfileInfo(response.data))
-                dispatch(toggleIsFetchingAC(false))
-            })
+            //const userId = +props.match.params.userId ?? 2
+            const userId = props.match.params.userId === undefined ? 2 : +props.match.params.userId
+            console.log(props.match.params.userId)
+            dispatch(setProfileTC(userId))
+
     }, [])
 
 
@@ -43,8 +40,7 @@ export const Profile = (props: ProfilePropsType) => {
                 <div className={css.profile}>
                     <ProfileInfo profile={profileState.profile}/>
                     <MyPostsContainer/>
-                </div>
-            }
+                </div>}
 
 
         </>

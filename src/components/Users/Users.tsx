@@ -3,17 +3,13 @@ import css from './Users.module.css'
 import userDefaultPhoto from '../../assets/images/userDefault.png'
 import {UsersPageType} from "../../redux/store";
 import {NavLink} from 'react-router-dom';
-import {followUser, unFollowUser} from "../../API/API";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {toggleFollowRequestInProcessAC, toggleIsFetchingAC, toggleIsFollowFetchingAC} from "../../redux/user-reducer";
+import {followUserTC, unFollowUserTC} from "../../redux/user-reducer";
 
 type UserType = {
     pageClickHandler: (page: number) => void
     pagesArr: Array<number>
-    usersPage: UsersPageType
-    followUser: (id: number) => void
-    unfollowUser: (id: number) => void
 }
 
 export const Users = (props: UserType) => {
@@ -21,9 +17,8 @@ export const Users = (props: UserType) => {
     const state = useSelector<AppRootStateType, UsersPageType>(state => state.usersPage)
     const dispatch = useDispatch()
 
-
     const pageToComp = props.pagesArr.map(el => {
-        let current = props.usersPage.currentPage === el
+        let current = state.currentPage === el
         return (
             <span
                 key={el}
@@ -35,37 +30,15 @@ export const Users = (props: UserType) => {
         )
     })
 
-    const followBtnHandler = (id: number, followed: boolean) => {
+    const followBtnHandler = (userId: number, followed: boolean) => {
         if (followed) {
-            dispatch(toggleIsFollowFetchingAC(true))
-            dispatch(toggleFollowRequestInProcessAC(id))
-
-            unFollowUser(id)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        props.unfollowUser(id)
-                    }
-                    dispatch(toggleIsFollowFetchingAC(false))
-                    dispatch(toggleFollowRequestInProcessAC(id))
-                })
-
+            dispatch(unFollowUserTC(userId))
         }
         if (!followed) {
-            dispatch(toggleIsFollowFetchingAC(true))
-            dispatch(toggleFollowRequestInProcessAC(id))
-
-
-            followUser(id)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        props.followUser(id)
-                    }
-                    dispatch(toggleIsFollowFetchingAC(false))
-                    dispatch(toggleFollowRequestInProcessAC(id))
-                })
+            dispatch(followUserTC(userId))
         }
     }
-    const usersDataToComp = props.usersPage.users.map(el => {
+    const usersDataToComp = state.users.map(el => {
         return (
 
             <section className={css.user_box} key={el.id}>

@@ -1,6 +1,8 @@
 import {ProfilePageType, UserProfileType} from "./store";
 import {addMessageActionCreator, updateMessageTextActionCreator} from "./dialog-reducer";
 import {toggleIsFetchingAC} from "./user-reducer";
+import {Dispatch} from "redux";
+import {getUserProfile} from "../API/API";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
@@ -98,3 +100,17 @@ export const setUserProfileInfo = (userInfoObj: UserProfileType) => {
     } as const
 }
 
+//...................................................................
+//Thunk Creators
+
+
+export const setProfileTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetchingAC(true))
+        getUserProfile(userId).then(response => {
+            console.log(response.data)
+            dispatch(setUserProfileInfo(response.data))
+            dispatch(toggleIsFetchingAC(false))
+        })
+    }
+}
