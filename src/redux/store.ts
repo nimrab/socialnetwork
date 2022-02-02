@@ -76,10 +76,12 @@ export type UserPhotoType = {
 
 export type UsersPageType = {
     users: Array<UsersType>
-    pageSize: 7
-    totalUsersCount: 0
+    pageSize: number
+    totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowFetching: boolean
+    followRequestInProcess: Array<number>
 }
 
 export type UsersType = {

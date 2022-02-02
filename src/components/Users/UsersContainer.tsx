@@ -5,7 +5,7 @@ import {
     addMoreUsersAC,
     changeUserPageNumberAC,
     followUserAC,
-    setTotalUsersCountAC, toggleIsFetchingAC,
+    setTotalUsersCountAC, toggleFollowRequestInProcessAC, toggleIsFetchingAC,
     unfollowUserAC
 } from "../../redux/user-reducer";
 import {UsersAPIComp} from "./UsersAPIComp";
@@ -22,6 +22,7 @@ type mapDispatchToPropsType = {
     selectPage: (page: number) => void
     setTotalUsersCount: (count: number) => void
     isFetching: (value: boolean) => void
+    toggleRequestInProcess: (userId: number) => void
 }
 
 
@@ -41,9 +42,11 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         unfollowUser: (userId: number) => dispatch(unfollowUserAC(userId)),
         selectPage: (page: number) => dispatch(changeUserPageNumberAC(page)),
         setTotalUsersCount: (count: number) => dispatch(setTotalUsersCountAC(count)),
-        isFetching: (value: boolean) => dispatch(toggleIsFetchingAC(value))
+        isFetching: (value: boolean) => dispatch(toggleIsFetchingAC(value)),
+        toggleRequestInProcess: (userId: number) => dispatch(toggleFollowRequestInProcessAC(userId))
     }
 }
+
 
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComp)

@@ -4,6 +4,9 @@ import userDefaultPhoto from '../../assets/images/userDefault.png'
 import {UsersPageType} from "../../redux/store";
 import {NavLink} from 'react-router-dom';
 import {followUser, unFollowUser} from "../../API/API";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../redux/redux-store";
+import {toggleFollowRequestInProcessAC, toggleIsFetchingAC, toggleIsFollowFetchingAC} from "../../redux/user-reducer";
 
 type UserType = {
     pageClickHandler: (page: number) => void
@@ -11,11 +14,12 @@ type UserType = {
     usersPage: UsersPageType
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
-    isFetching: (value: boolean) => void
 }
 
-
 export const Users = (props: UserType) => {
+
+    const state = useSelector<AppRootStateType, UsersPageType>(state => state.usersPage)
+    const dispatch = useDispatch()
 
 
     const pageToComp = props.pagesArr.map(el => {
@@ -33,24 +37,31 @@ export const Users = (props: UserType) => {
 
     const followBtnHandler = (id: number, followed: boolean) => {
         if (followed) {
-            props.isFetching(true)
+            dispatch(toggleIsFollowFetchingAC(true))
+            dispatch(toggleFollowRequestInProcessAC(id))
+
             unFollowUser(id)
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         props.unfollowUser(id)
                     }
-                    props.isFetching(false)
+                    dispatch(toggleIsFollowFetchingAC(false))
+                    dispatch(toggleFollowRequestInProcessAC(id))
                 })
 
         }
         if (!followed) {
-            props.isFetching(true)
+            dispatch(toggleIsFollowFetchingAC(true))
+            dispatch(toggleFollowRequestInProcessAC(id))
+
+
             followUser(id)
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         props.followUser(id)
                     }
-                    props.isFetching(false)
+                    dispatch(toggleIsFollowFetchingAC(false))
+                    dispatch(toggleFollowRequestInProcessAC(id))
                 })
         }
     }
@@ -67,12 +78,13 @@ export const Users = (props: UserType) => {
                             className={css.img}
                         />
                     </NavLink>
-                    <div
+                    <button
                         className={css.follow_btn}
                         onClick={() => followBtnHandler(el.id, el.followed)}
+                        disabled={state.followRequestInProcess.some(elem => elem === el.id)}
                     >
                         {el.followed ? 'Unfollow' : 'Follow'}
-                    </div>
+                    </button>
                 </div>
 
                 <div className={css.user_info_box}>

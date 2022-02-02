@@ -7,6 +7,8 @@ const UNFOLLOW_USER = 'UNFOLLOW-USER'
 const CHANGE_USER_PAGE_NUMBER = 'CHANGE-USER-PAGE-NUMBER'
 const SET_USERS_COUNT = 'SET-USERS-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+const TOGGLE_FOLLOW_REQUEST = 'TOGGLE-FOLLOW-REQUEST'
+const TOGGLE_IS_FOLLOW_FETCHING = 'TOGGLE-IS-FOLLOW-FETCHING'
 
 type InitialStateType = {
     users: Array<UsersType>
@@ -14,6 +16,8 @@ type InitialStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowFetching: boolean
+    followRequestInProcess: Array<number>
 }
 
 type profileReducerType =
@@ -22,7 +26,9 @@ type profileReducerType =
     addMoreUsersACType |
     changeUserPageNumberType |
     setTotalUsersCountType |
-    toggleIsFetchingType
+    toggleIsFetchingType |
+    toggleFollowRequestInProcessType |
+    toggleIsFollowFetchingType
 
 
 const initialState: any = {
@@ -30,7 +36,9 @@ const initialState: any = {
     pageSize: 7,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true,
+    isFetching: false,
+    isFollowFetching: false,
+    followRequestInProcess: []
 }
 
 
@@ -55,6 +63,14 @@ export const userReducer = (state: InitialStateType = initialState, action: prof
 
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.value}
+
+        case TOGGLE_IS_FOLLOW_FETCHING:
+            return {...state, isFollowFetching: action.value}
+
+        case TOGGLE_FOLLOW_REQUEST:
+            return state.isFollowFetching
+            ? {...state, followRequestInProcess: [...state.followRequestInProcess, action.userId]}
+            : {...state, followRequestInProcess: state.followRequestInProcess.filter(el => el !== action.userId)}
 
         default:
             return state
@@ -117,6 +133,27 @@ export const toggleIsFetchingAC = (value: boolean) => {
         value
     } as const
 }
+
+type toggleIsFollowFetchingType = ReturnType<typeof toggleIsFollowFetchingAC>
+
+export const toggleIsFollowFetchingAC = (value: boolean) => {
+    return {
+        type: TOGGLE_IS_FOLLOW_FETCHING,
+        value
+    } as const
+}
+
+
+
+type toggleFollowRequestInProcessType = ReturnType<typeof toggleFollowRequestInProcessAC>
+
+export const toggleFollowRequestInProcessAC = (userId: number) => {
+    return {
+        type: TOGGLE_FOLLOW_REQUEST,
+        userId
+    } as const
+}
+
 
 
 
