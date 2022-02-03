@@ -33,6 +33,14 @@ export type ProfilePageType = {
     isFetching: boolean
 }
 
+export type userAuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    messages: Array<string>
+    isAuth: boolean
+}
+
 type UserProfileContactType = {
     github: string | null
     vk: string | null

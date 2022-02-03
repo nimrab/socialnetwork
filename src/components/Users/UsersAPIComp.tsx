@@ -5,12 +5,14 @@ import {Preloader} from "../common/Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsersTC, userPagesTC} from "../../redux/user-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
-import {UsersPageType} from "../../redux/store";
+import {userAuthType, UsersPageType} from "../../redux/store";
+import {Redirect} from "react-router-dom";
 
 
 export const UsersAPIComp = (props: UsersPropsType) => {
 
     const state = useSelector<AppRootStateType, UsersPageType>(state => state.usersPage)
+    const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -30,6 +32,10 @@ export const UsersAPIComp = (props: UsersPropsType) => {
 
     for (let i = 1; i <= pagesCount; i++) {
         pagesArr.push(i)
+    }
+
+    if (!isAuth) {
+        return <Redirect to='/login'/>
     }
 
     return (
