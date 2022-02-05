@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authMe} from "../API/API";
+import {toggleIsFetchingAC} from "./user-reducer";
 
 const SET_AUTH_DATA = 'SET-AUTH-DATA'
 
@@ -53,11 +54,13 @@ export const setAuth = (id: number, email: string, login: string, messages: Arra
 //Thunk Creators
 
 export const setAuthTC = () => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetchingAC(true))
     authMe()
         .then(res => {
             if (res.data.resultCode === 0) {
                 const {id, email, login, messages} = res.data.data
                 dispatch(setAuth(id, email, login, messages))
+                dispatch(toggleIsFetchingAC(false))
             }
         })
 }

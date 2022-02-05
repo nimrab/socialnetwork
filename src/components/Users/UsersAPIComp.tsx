@@ -5,7 +5,7 @@ import {Preloader} from "../common/Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsersTC, userPagesTC} from "../../redux/user-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
-import {userAuthType, UsersPageType} from "../../redux/store";
+import {UsersPageType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 
 

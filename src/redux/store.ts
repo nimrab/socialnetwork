@@ -29,7 +29,7 @@ export type DialogsPageType = {
 export type ProfilePageType = {
     profile: UserProfileType
     posts: Array<MesPropType>
-    newPostText: string,
+    newPostText: string
     isFetching: boolean
 }
 
@@ -57,6 +57,7 @@ type UserProfilePhotosType = {
     large: string | null
 }
 export type UserProfileType = {
+    status: string
     userId: number | null
     aboutMe: string | null
     lookingForAJob: boolean | null
@@ -123,6 +124,7 @@ export const store: StoreType = {
     _state: {
         profilePage: {
             profile: {
+                status: 'Set your status here...',
                 aboutMe: null,
                 userId: null,
                 lookingForAJob: null,

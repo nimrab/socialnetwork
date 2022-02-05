@@ -9,16 +9,17 @@ import {WithRouterProfile} from "./components/Profile/WithRouterProfile";
 import {Login} from "./components/Header/Login/Login";
 
 
+
 export const App = () => {
 
     return (
         <BrowserRouter>
             <div className="main_section">
                 <Header/>
-                <Route path='/login' render={() => <Login/>}/>
+
                 <Navbar/>
                 <div className="content">
-
+                    <Route path='/login' render={() => <Login/>}/>
                     <Route path='/profile/:userId?' render={() => <WithRouterProfile/>}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>

@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ProfilePageType} from "../../redux/store";
 import {AppRootStateType} from "../../redux/redux-store";
 import {setProfileTC} from "../../redux/profile-reducer";
-import {RouteComponentProps} from "react-router-dom";
+import {Redirect, RouteComponentProps} from "react-router-dom";
 import {Preloader} from "../common/Preloader/Preloader";
 
 type PathParamsType = {
@@ -19,17 +19,27 @@ export const Profile = (props: ProfilePropsType) => {
 
     const dispatch = useDispatch()
     const profileState = useSelector<AppRootStateType, ProfilePageType>(state => state.profilePage)
-
-
+    const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
+    const authId = useSelector<AppRootStateType, number | null>(state => state.auth.id)
+    const userId = +props.match.params.userId
     useEffect(() => {
-        //check for hardcode number 2..
+        //const userId = +props.match.params.userId ?? 2
 
-            //const userId = +props.match.params.userId ?? 2
-            const userId = props.match.params.userId === undefined ? 2 : +props.match.params.userId
-            console.log(props.match.params.userId)
+        if (userId) {
             dispatch(setProfileTC(userId))
+        }
 
     }, [])
+
+
+    if (!isAuth) {
+        return <Redirect to='/login'/>
+    }
+
+    if (!props.match.params.userId) {
+        return <Redirect to={`/profile/${authId}`}/>
+    }
+
 
 
     return (
@@ -38,7 +48,9 @@ export const Profile = (props: ProfilePropsType) => {
                 ? <Preloader/>
                 :
                 <div className={css.profile}>
-                    <ProfileInfo profile={profileState.profile}/>
+                    <ProfileInfo
+                        profile={profileState.profile}
+                    />
                     <MyPostsContainer/>
                 </div>}
 

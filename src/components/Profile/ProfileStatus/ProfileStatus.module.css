@@ -1,0 +1,23 @@
+.span_status {
+    display: inline-block;
+    min-width: 300px;
+    min-height: 20px;
+    outline: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px 20px;
+    display: flex;
+}
+
+.input_status {
+    min-width: 300px;
+    min-height: 20px;
+    border: none;
+    outline: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
+.input_status:focus {
+    border: none;
+    background-color: #f6eecd;
+}
