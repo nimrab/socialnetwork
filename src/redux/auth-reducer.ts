@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {authMe} from "../API/API";
+import {authMe, sendLoginForm} from "../API/API";
 import {toggleIsFetchingAC} from "./user-reducer";
+import {FormValues} from "../components/Header/Login/Login";
 
 const SET_AUTH_DATA = 'SET-AUTH-DATA'
 
@@ -61,6 +62,23 @@ export const setAuthTC = () => (dispatch: Dispatch) => {
                 const {id, email, login, messages} = res.data.data
                 dispatch(setAuth(id, email, login, messages))
                 dispatch(toggleIsFetchingAC(false))
+            }
+        })
+}
+
+export const loginFormTC = (formData: FormValues) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetchingAC(true))
+    sendLoginForm(formData)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                authMe()
+                    .then(res => {
+                        if (res.data.resultCode === 0) {
+                            const {id, email, login, messages} = res.data.data
+                            dispatch(setAuth(id, email, login, messages))
+                            dispatch(toggleIsFetchingAC(false))
+                        }
+                    })
             }
         })
 }

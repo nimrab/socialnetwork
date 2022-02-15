@@ -12,6 +12,7 @@ export type ProfileInfoPropsType = {
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
+
     if (props.profile.userId === null) {
         return <Preloader/>
     } else {

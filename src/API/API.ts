@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FormValues} from "../components/Header/Login/Login";
 
 
 export const instance = axios.create({
@@ -24,28 +25,32 @@ export const authMe = () => {
 
 
 export const followUser = (userId: number) => {
-    return instance.post(`/follow/${userId}`)
+    return instance.post(`follow/${userId}`)
 }
 
 export const unFollowUser = (userId: number) => {
-    return instance.delete(`/follow/${userId}`)
+    return instance.delete(`follow/${userId}`)
 }
 
 export const getProfileStatus = (userId: number) => {
-    return instance.get<string | null>(`/profile/status/${userId}`)
+    return instance.get<string | null>(`profile/status/${userId}`)
 
 }
 
 export const updateProfileStatus = (status: string) => {
-    return instance.put<ProfileResponseType>(`/profile/status/`, {status})
+    return instance.put<ProfileResponseType>(`profile/status/`, {status})
 
+}
+
+export const sendLoginForm = (formData: FormValues) => {
+    return instance.post<ProfileResponseType>('auth/login', {formData})
 }
 
 
 type ProfileResponseType = {
     resultCode: number
     messages: string[]
-    fieldsErrors: string[]
+    fieldsErrors?: string[]
     data: {}
 }
 

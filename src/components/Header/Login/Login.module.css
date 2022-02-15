@@ -19,3 +19,16 @@
 .login_box:active {
     box-shadow: inset 2px 2px 2px #333333;
 }
+
+.login_error {
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.remember {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+}

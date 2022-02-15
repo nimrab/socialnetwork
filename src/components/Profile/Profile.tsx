@@ -8,6 +8,7 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {setProfileTC} from "../../redux/profile-reducer";
 import {Redirect, RouteComponentProps} from "react-router-dom";
 import {Preloader} from "../common/Preloader/Preloader";
+import {Login} from "../Header/Login/Login";
 
 type PathParamsType = {
     userId: string
@@ -22,6 +23,7 @@ export const Profile = (props: ProfilePropsType) => {
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
     const authId = useSelector<AppRootStateType, number | null>(state => state.auth.id)
     const userId = +props.match.params.userId
+
     useEffect(() => {
         //const userId = +props.match.params.userId ?? 2
 
@@ -33,7 +35,8 @@ export const Profile = (props: ProfilePropsType) => {
 
 
     if (!isAuth) {
-        return <Redirect to='/login'/>
+       // return <Redirect to='/login'/>
+        return <Login/>
     }
 
     if (!props.match.params.userId) {
